@@ -1,0 +1,50 @@
+{
+  "name": "hexo-csp",
+  "version": "0.0.1",
+  "description": "A hexo plugin to generate and inject a CSP.",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "files": [
+    "index.js",
+    "lib/"
+  ],
+  "scripts": {
+    "test": "jest"
+  },
+  "jest": {
+    "testRegex": "/__tests__/.*.spec.js",
+    "testPathIgnorePatterns": [
+      "support/"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xbc5/hexo-csp.git"
+  },
+  "keywords": [
+    "hexo",
+    "hexo-plugin",
+    "csp",
+    "content security poliicy",
+    "security"
+  ],
+  "author": "xbc5 <87829033+xbc5@users.noreply.github.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/xbc5/hexo-csp/issues"
+  },
+  "homepage": "https://github.com/xbc5/hexo-csp",
+  "dependencies": {
+    "hasha": "^5.0.0",
+    "lodash.clonedeep": "^4.5.0"
+  },
+  "devDependencies": {
+    "@fsouza/prettierd": "^0.20.0",
+    "hexo": "^6.0.0",
+    "hexo-renderer-pug": "^2.0.0",
+    "hexo-test-utils": "^0.5.0",
+    "jest": "^27.0.6"
+  }
+}
