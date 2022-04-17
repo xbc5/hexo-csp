@@ -1,5 +1,5 @@
 const getSandbox = require("./support/sandbox");
-const template = require("./helpers/templates");
+const template = require("./helpers/template");
 const { process, contentFor } = require("hexo-test-utils");
 const sandbox = getSandbox();
 
