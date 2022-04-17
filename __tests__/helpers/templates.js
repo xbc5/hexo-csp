@@ -9,11 +9,9 @@ function template(ctx, metaTag) {
 <!DOCTYPE html>
 <html lang="en">
   <head>${metaTag}
-    <title>Fake Title: Basic</title>
+    <title>Fake Title</title>
   <meta name="generator" content="Hexo ${ctx.env.version}"></head>
-  <body>
-    <h1>Fake Heading: Basic</h1>
-  </body>
+  <body></body>
 </html>
 `.trim();
 }

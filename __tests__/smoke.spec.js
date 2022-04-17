@@ -5,7 +5,7 @@ const sandbox = getSandbox();
 
 describe("using the hexo-test-utils", () => {
   it("should return a rendered document", async () => {
-    const ctx = await sandbox({ fixtureName: "basic" });
+    const ctx = await sandbox({ fixtureName: "default" });
     await process(ctx);
     const content = await contentFor(ctx, "fake.html");
 
