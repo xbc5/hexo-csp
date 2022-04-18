@@ -16,7 +16,8 @@
   "jest": {
     "testRegex": "/__tests__/.*.spec.js",
     "testPathIgnorePatterns": [
-      "support/"
+      "support/",
+      "__snapshots__"
     ]
   },
   "repository": {
@@ -25,9 +26,9 @@
   },
   "keywords": [
     "hexo",
-    "hexo-plugin",
+    "plugin",
     "csp",
-    "content security poliicy",
+    "content security policy",
     "security"
   ],
   "author": "xbc5 <87829033+xbc5@users.noreply.github.com>",
@@ -37,8 +38,10 @@
   },
   "homepage": "https://github.com/xbc5/hexo-csp",
   "dependencies": {
+    "cheerio": "^1.0.0-rc.10",
     "hasha": "^5.0.0",
-    "lodash.clonedeep": "^4.5.0"
+    "lodash.clonedeep": "^4.5.0",
+    "lodash.merge": "^4.6.2"
   },
   "devDependencies": {
     "@fsouza/prettierd": "^0.20.0",

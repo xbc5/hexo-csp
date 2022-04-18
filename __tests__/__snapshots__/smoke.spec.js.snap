@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`using the hexo-test-utils should return a rendered document 1`] = `
+"<!DOCTYPE html>
+<html lang=\\"en\\">
+  <head>
+    <title>Fake Title</title>
+  </head>
+  <body></body>
+</html>"
+`;

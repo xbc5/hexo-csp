@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`for inject(html, metaTag) it should inject multiple meta tags 1`] = `
+"<!DOCTYPE html><html lang=\\"en\\"><head><meta http-equiv=\\"\\" content=\\"\\"><meta http-equiv=\\"\\" content=\\"\\">
+    <title>Fake Title</title>
+  </head>
+  <body>
+</body></html>"
+`;
+
+exports[`for inject(html, metaTag) it should inject the meta tag into the head element 1`] = `
+"<!DOCTYPE html><html lang=\\"en\\"><head><meta http-equiv=\\"\\" content=\\"\\">
+    <title>Fake Title</title>
+  </head>
+  <body>
+</body></html>"
+`;

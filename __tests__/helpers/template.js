@@ -1,19 +1,21 @@
 function meta(strings, tag, version) {
-  return tag
-    ? strings[0] + `\n    ${tag}` + strings[1] + version + strings[2]
-    : strings[0] + strings[1] + version + strings[2];
+  const result = tag
+    ? [strings[0], `\n    ${tag}`, strings[1], version, strings[2]]
+    : [strings[0], strings[1], version, strings[2]];
+
+  return result.filter((item) => item).join("");
 }
 
-function template(ctx, metaTag) {
+function basic(metaTag) {
   return meta`
 <!DOCTYPE html>
 <html lang="en">
   <head>${metaTag}
     <title>Fake Title</title>
-  <meta name="generator" content="Hexo ${ctx.env.version}"></head>
+  </head>
   <body></body>
 </html>
 `.trim();
 }
 
-module.exports = template;
+module.exports = { basic };
