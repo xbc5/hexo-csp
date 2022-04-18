@@ -1,7 +1,8 @@
 "use strict";
-const config = hexo.config;
 const { inject } = require("./lib/parser");
-const { merge } = require("./lib");
+const Config = require("./lib/config");
+
+const config = new Config(hexo.config);
 
 function meta(...directives) {
   return (
@@ -10,16 +11,16 @@ function meta(...directives) {
   );
 }
 
-if (config.csp?.enabled) {
-  const defaultOpts = {
-    directives: { "default-src": "'self'" },
-  };
-  hexo.extend.filter.register("after_render:html", function run(str, data) {
-    const hexo = this;
-    const options = merge(defaultOpts, hexo.config.csp);
-    const path = data.path;
-    const log = hexo.log || console;
+if (config.enabled) {
+  hexo.extend.filter.register(
+    "after_render:html",
+    function run(str, data) {
+      const hexo = this;
+      const path = data.path;
+      const log = hexo.log || console;
 
-    return inject(str, meta());
-  });
+      return inject(str, meta());
+    },
+    config.priority
+  );
 }
