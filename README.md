@@ -18,25 +18,27 @@ csp:
     algo: sha256
   priority: 100
   violation:
-    throw: true
+    action:
+      - warn
+      - throw
   mode:
     env: merge # | replace
   prod:
     report:
       uri: /foo/bar
       enabled: true
-    env:
-      - prod
-      - production
-      - ""
-    directives:
+    policies:
       default:
-        default-src: 'self'
-        img-src: 'self'
+        default-src:
+          - 'self'
+        img-src:
+          - 'self'
       foo/index.html:
         mode: replace
-        default-src: 'self'
-        img-src: 'self'
+        default-src:
+          - 'self'
+        img-src:
+          - 'self'
   dev:
     report:
       uri: /foo/bar
@@ -44,14 +46,21 @@ csp:
     env:
       - dev
       - develop
+      - development
+      - test
       - trace
       - debug
-    directives:
+    policies:
       default:
-        default-src: 'self https//dev-server.com'
-        img-src: 'self https://some-placeholer-images.com'
+        default-src:
+          - 'self' 
+          - https//dev-server.com
+        img-src: 
+          - self https://some-placeholer-images.com
       foo/index.html:
         mode: replace
-        default-src: 'self'
-        img-src: 'self'
+        default-src:
+          - 'self'
+        img-src:
+          - 'self'
 ```

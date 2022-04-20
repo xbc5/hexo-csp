@@ -1,4 +1,4 @@
-const Config = require("../lib/config");
+const Config = require("../../lib/config");
 
 describe("for Config.enabled", () => {
   it("should be enabled if enabled:true provided", async () => {

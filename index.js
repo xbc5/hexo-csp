@@ -15,6 +15,7 @@ if (config.enabled) {
   hexo.extend.filter.register(
     "after_render:html",
     function run(str, data) {
+      console.log(data);
       const hexo = this;
       const path = data.path;
       const log = hexo.log || console;

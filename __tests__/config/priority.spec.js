@@ -1,4 +1,4 @@
-const Config = require("../lib/config");
+const Config = require("../../lib/config");
 
 const DEFAULT = 999;
 
