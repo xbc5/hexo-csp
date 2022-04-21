@@ -21,7 +21,8 @@
     ],
     "snapshotSerializers": [
       "jest-serializer-html"
-    ]
+    ],
+    "testTimeout": 60000
   },
   "repository": {
     "type": "git",
