@@ -1,3 +1,5 @@
+"use strict";
+
 const template = require("./helpers/template");
 const { inject } = require("../lib/parser");
 

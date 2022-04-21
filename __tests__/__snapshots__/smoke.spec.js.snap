@@ -1,11 +1,62 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`using the hexo-test-utils should return a rendered document 1`] = `
-"<!DOCTYPE html>
-<html lang=\\"en\\">
+<!DOCTYPE html>
+<html lang="en">
   <head>
-    <title>Fake Title</title>
+    <title>
+      Fake Title
+    </title>
   </head>
-  <body></body>
-</html>"
+  <body>
+  </body>
+</html>
+`;
+
+exports[`using the hexo-test-utils the markdown fixture should return a rendered page for / 1`] = `
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>
+      Markdown Home
+    </title>
+  </head>
+</html>
+<body>
+  <h2 id="Home">
+    Home
+  </h2>
+</body>
+`;
+
+exports[`using the hexo-test-utils the markdown fixture should return a rendered page for markdown-1 1`] = `
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>
+      Markdown 1
+    </title>
+  </head>
+</html>
+<body>
+  <h1>
+    Markdown 1
+  </h1>
+</body>
+`;
+
+exports[`using the hexo-test-utils the markdown fixture should return a rendered page for markdown-2 1`] = `
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>
+      Markdown 2
+    </title>
+  </head>
+</html>
+<body>
+  <h1>
+    Markdown 1
+  </h1>
+</body>
 `;

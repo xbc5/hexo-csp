@@ -1,26 +1,19 @@
 "use strict";
-const { inject } = require("./lib/parser");
+
+const { applyCSP } = require("./lib/util");
 const Config = require("./lib/config");
+const { registerCli } = require("./lib/cli");
 
 const config = new Config(hexo.config);
 
-function meta(...directives) {
-  return (
-    '<meta http-equiv="Content-Security-Policy" ' +
-    `content="${directives.join("; ")}">`
-  );
-}
+registerCli(hexo);
 
 if (config.enabled) {
   hexo.extend.filter.register(
     "after_render:html",
     function run(str, data) {
-      console.log(data);
-      const hexo = this;
-      const path = data.path;
-      const log = hexo.log || console;
-
-      return inject(str, meta());
+      // TODO: you need to handle default path
+      return applyCSP(config, data, str);
     },
     config.priority
   );

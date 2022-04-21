@@ -1,7 +1,8 @@
 "use strict";
-const { mergePolicies } = require("../../lib/util");
 
-describe("when mergePolicies() is given three policies", () => {
+const { mergeDirectives } = require("../../lib/util");
+
+describe("when mergeDirectives() is given three sets of directives", () => {
   it("should merge them", async () => {
     const a = {
       "default-src": ["'self'", "https://foo.com"],
@@ -18,11 +19,11 @@ describe("when mergePolicies() is given three policies", () => {
       "img-src": ["https://bar.net", "https://foobar.com", "https://baz.net"],
     };
 
-    expect(mergePolicies(a, b, c)).toStrictEqual(expected);
+    expect(mergeDirectives(a, b, c)).toStrictEqual(expected);
   });
 });
 
-describe("when mergePolicies() is given empty policies", () => {
+describe("when mergeDirectives() is given empty directives", () => {
   it("should merge them", async () => {
     const a = {
       "default-src": ["'self'", "https://foo.com"],
@@ -33,11 +34,11 @@ describe("when mergePolicies() is given empty policies", () => {
       "default-src": ["'self'", "https://foo.com"],
     };
 
-    expect(mergePolicies(a, b, c)).toStrictEqual(expected);
+    expect(mergeDirectives(a, b, c)).toStrictEqual(expected);
   });
 });
 
-describe("when mergePolicies() is given undefined policies", () => {
+describe("when mergeDirectives() is given undefined directives", () => {
   it("should ignore undefined and merge what it can", async () => {
     const a = {
       "default-src": ["'self'", "https://foo.com"],
@@ -52,10 +53,10 @@ describe("when mergePolicies() is given undefined policies", () => {
       "default-src": ["'self'", "https://foo.com", "https://bar.com"],
     };
 
-    expect(mergePolicies(a, b, c, d)).toStrictEqual(expected);
+    expect(mergeDirectives(a, b, c, d)).toStrictEqual(expected);
   });
 
   it("should return an empty object if all undefined", async () => {
-    expect(mergePolicies(undefined, undefined, undefined)).toStrictEqual({});
+    expect(mergeDirectives(undefined, undefined, undefined)).toStrictEqual({});
   });
 });

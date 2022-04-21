@@ -1,3 +1,5 @@
+"use strict";
+
 const { keyUnion } = require("../../lib/util");
 
 describe("when giving keyUnion() three objects", () => {

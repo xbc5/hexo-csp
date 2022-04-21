@@ -1,0 +1,115 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`given frontmatter; mode=merge; env=dev for / should merge and render the given policies 1`] = `
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Security-Policy"
+          content="default-src https://prod-index-default.com 'self' https://frontmatter-home-default.com; img-src https://frontmatter-home-img.com"
+    >
+    <title>
+      Markdown Home
+    </title>
+  </head>
+  <body>
+    <h2 id="Home">
+      Home
+    </h2>
+  </body>
+</html>
+`;
+
+exports[`given frontmatter; mode=merge; env=dev for markdown-1 should merge and render the given policies 1`] = `
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Security-Policy"
+          content="default-src https://prod-markdown-1-default-1.com https://prod-markdown-1-default-2.com https://frontmatter-markdown-1-default-1.com https://frontmatter-markdown-1-default-2.com; img-src https://prod-markdown-1-img.com https://dev-markdown-1-img.com https://frontmatter-markdown-1-img-1.com https://frontmatter-markdown-1-img-2.com"
+    >
+    <title>
+      Markdown 1
+    </title>
+  </head>
+  <body>
+    <h1>
+      Markdown 1
+    </h1>
+  </body>
+</html>
+`;
+
+exports[`given frontmatter; mode=merge; env=dev for markdown-2 should merge and render the given policies 1`] = `
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Security-Policy"
+          content="img-src https://prod-markdown-2-img.com https://dev-markdown-2-img.com https://frontmatter-markdown-2-img-1.com https://frontmatter-markdown-2-img-2.com; default-src https://dev-markdown-2-default-1.com https://dev-markdown-2-default-2.com https://frontmatter-markdown-2-default-1.com https://frontmatter-markdown-2-default-2.com"
+    >
+    <title>
+      Markdown 2
+    </title>
+  </head>
+  <body>
+    <h1>
+      Markdown 1
+    </h1>
+  </body>
+</html>
+`;
+
+exports[`given frontmatter; mode=merge; env=prod for / should merge and render the given (production) policies 1`] = `
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Security-Policy"
+          content="default-src https://prod-index-default.com 'self' https://frontmatter-home-default.com; img-src https://frontmatter-home-img.com"
+    >
+    <title>
+      Markdown Home
+    </title>
+  </head>
+  <body>
+    <h2 id="Home">
+      Home
+    </h2>
+  </body>
+</html>
+`;
+
+exports[`given frontmatter; mode=merge; env=prod for markdown-1 should merge and render the given (production) policies 1`] = `
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Security-Policy"
+          content="default-src https://prod-markdown-1-default-1.com https://prod-markdown-1-default-2.com https://frontmatter-markdown-1-default-1.com https://frontmatter-markdown-1-default-2.com; img-src https://prod-markdown-1-img.com https://frontmatter-markdown-1-img-1.com https://frontmatter-markdown-1-img-2.com"
+    >
+    <title>
+      Markdown 1
+    </title>
+  </head>
+  <body>
+    <h1>
+      Markdown 1
+    </h1>
+  </body>
+</html>
+`;
+
+exports[`given frontmatter; mode=merge; env=prod for markdown-2 should merge and render the given (production) policies 1`] = `
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Security-Policy"
+          content="img-src https://prod-markdown-2-img.com https://frontmatter-markdown-2-img-1.com https://frontmatter-markdown-2-img-2.com; default-src https://frontmatter-markdown-2-default-1.com https://frontmatter-markdown-2-default-2.com"
+    >
+    <title>
+      Markdown 2
+    </title>
+  </head>
+  <body>
+    <h1>
+      Markdown 1
+    </h1>
+  </body>
+</html>
+`;

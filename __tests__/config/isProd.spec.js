@@ -2,38 +2,33 @@
 const Config = require("../../lib/config");
 
 describe("for Config.isProd", () => {
-  let prev;
-
-  beforeEach(() => {
-    prev = process.env["NODE_ENV"];
-    process.env["NODE_ENV"] = "foo";
-  });
-
-  afterEach(() => {
-    process.env["NODE_ENV"] = prev;
-  });
-
   it("should return true if not dev env", async () => {
-    const conf = new Config({ csp: { dev: { env: ["bar"] } } });
-    expect(conf.isDev).toBe(false);
+    const conf = new Config({ csp: { env: "prod" } });
     expect(conf.isProd).toBe(true);
   });
 
   it("should return true by default if no dev env set", async () => {
     const conf = new Config({ csp: {} });
-    expect(conf.isDev).toBe(false);
     expect(conf.isProd).toBe(true);
   });
 
   it("should return true by default if no config set", async () => {
     const conf = new Config();
-    expect(conf.isDev).toBe(false);
     expect(conf.isProd).toBe(true);
   });
 
   it("should return false if dev env set", async () => {
-    const conf = new Config({ csp: { dev: { env: ["foo"] } } });
-    expect(conf.isDev).toBe(true);
+    const conf = new Config({ csp: { env: "dev" } });
     expect(conf.isProd).toBe(false);
+  });
+
+  it("should always be !isDev", async () => {
+    const conf1 = new Config({ csp: { env: "dev" } });
+    expect(conf1.isProd).toBe(false);
+    expect(conf1.isDev).toBe(true);
+
+    const conf2 = new Config({ csp: { env: "prod" } });
+    expect(conf2.isProd).toBe(true);
+    expect(conf2.isDev).toBe(false);
   });
 });

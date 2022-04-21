@@ -1,3 +1,5 @@
+"use strict";
+
 const Config = require("../../lib/config");
 
 describe("for Config.enabled", () => {

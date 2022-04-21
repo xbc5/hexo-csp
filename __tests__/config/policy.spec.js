@@ -1,22 +1,25 @@
+"use strict";
+
 const Config = require("../../lib/config");
 
-const DEFAULT = {};
-
-describe("for Config.prod.policies", () => {
-  it("should return the provided value", async () => {
+describe("for Config.policy", () => {
+  it("should return the requested policy", async () => {
     const policies = {
       default: {
-        "default-src": ["'self'"],
-        "img-src": ["https://bar.com"],
+        directives: {
+          "default-src": ["'self'"],
+          "img-src": ["https://bar.com"],
+        },
       },
       "foo/index.html": {
-        "default-src": ["'self'"],
-        "img-src": ["https://foo.com", "https://baz.com"],
+        directives: {
+          "default-src": ["'self'"],
+          "img-src": ["https://foo.com", "https://baz.com"],
+        },
       },
     };
 
     const expected = {
-      path: "foo/index.html",
       directives: {
         "default-src": ["'self'"],
         "img-src": ["https://foo.com", "https://baz.com"],
@@ -26,13 +29,22 @@ describe("for Config.prod.policies", () => {
     expect(config.policy("foo/index.html")).toMatchObject(expected);
   });
 
-  it("should return an empty object if no policies", async () => {
-    const config = new Config({ csp: { prod: {} } });
-    expect(config.policy("foo/index.html")).toMatchObject(DEFAULT);
-  });
+  describe("defaults (no policies)", () => {
+    [
+      undefined,
+      {},
+      { csp: {} },
+      { csp: { prod: {} } },
+      { csp: { prod: { policies: {} } } },
+    ].forEach((conf) => {
+      const msg = conf === undefined ? undefined : JSON.stringify(conf);
 
-  it("should return an empty object if no prod object", async () => {
-    const config = new Config({ csp: {} });
-    expect(config.policy("foo/index.html")).toMatchObject(DEFAULT);
+      describe(`when the config object is ${msg}`, () => {
+        it("should return an empty object", async () => {
+          const config = new Config(conf);
+          expect(config.policy("foo/index.html")).toMatchObject({});
+        });
+      });
+    });
   });
 });

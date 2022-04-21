@@ -1,13 +1,19 @@
-const getSandbox = require("./support/sandbox");
-const { process, contentFor } = require("hexo-test-utils");
-const sandbox = getSandbox();
+"use strict";
+
+const { fixture } = require("./helpers/mock");
 
 describe("using the hexo-test-utils", () => {
   it("should return a rendered document", async () => {
-    const ctx = await sandbox({ fixtureName: "default" });
-    await process(ctx);
-    const content = await contentFor(ctx, "fake.html");
+    const render = await fixture("default");
+    expect(await render("fake.html")).toMatchSnapshot();
+  });
 
-    expect(content.toString().trim()).toMatchSnapshot();
+  describe("the markdown fixture", () => {
+    ["markdown-1", "markdown-2", "/"].forEach((name) => {
+      it(`should return a rendered page for ${name}`, async () => {
+        const render = await fixture("markdown");
+        expect(await render(name)).toMatchSnapshot();
+      });
+    });
   });
 });

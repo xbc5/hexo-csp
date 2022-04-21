@@ -1,3 +1,5 @@
+"use strict";
+
 const { mergeArrays } = require("../../lib/util");
 
 describe("when giving mergeArrays() three sources", () => {
@@ -29,5 +31,11 @@ describe("when giving mergeArrays() undefined values", () => {
       "https://baz.com/",
       "http://foobar.net",
     ]);
+  });
+});
+
+describe("when giving mergeArrays() one value", () => {
+  it("should return that value", async () => {
+    expect(mergeArrays(["'self'"])).toStrictEqual(["'self'"]);
   });
 });
