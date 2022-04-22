@@ -16,19 +16,14 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Install pnpm and modules
-        uses: pnpm/action-setup@v2.1.0
-        with:
-          version: latest
-
       - name: Setup Node ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-          cache: 'pnpm'
+          cache: 'npm'
 
-      - run: pnpm install --no-frozen-lockfile
-      - run: pnpm test
+      - run: npm ci
+      - run: npm test
 
   user:
     if: ${{ github.actor != 'dependabot[bot]' }}
@@ -39,16 +34,11 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Install pnpm and modules
-        uses: pnpm/action-setup@v2.1.0
-        with:
-          version: latest
-
       - name: Setup Node ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-          cache: 'pnpm'
+          cache: 'npm'
 
-      - run: pnpm install
-      - run: pnpm test
+      - run: npm install
+      - run: npm test
