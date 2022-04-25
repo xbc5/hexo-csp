@@ -1,8 +1,8 @@
 "use strict";
 
-const { mergeDirectives } = require("../../lib/util");
+const Directives = require("../../lib/Directives");
 
-describe("when mergeDirectives() is given three sets of directives", () => {
+describe("when given three sets of directives", () => {
   it("should merge them", async () => {
     const a = {
       "default-src": ["'self'", "https://foo.com"],
@@ -19,11 +19,11 @@ describe("when mergeDirectives() is given three sets of directives", () => {
       "img-src": ["https://bar.net", "https://foobar.com", "https://baz.net"],
     };
 
-    expect(mergeDirectives(a, b, c)).toStrictEqual(expected);
+    expect(Directives.merge(a, b, c)).toStrictEqual(expected);
   });
 });
 
-describe("when mergeDirectives() is given empty directives", () => {
+describe("when given empty directives", () => {
   it("should merge them", async () => {
     const a = {
       "default-src": ["'self'", "https://foo.com"],
@@ -34,11 +34,11 @@ describe("when mergeDirectives() is given empty directives", () => {
       "default-src": ["'self'", "https://foo.com"],
     };
 
-    expect(mergeDirectives(a, b, c)).toStrictEqual(expected);
+    expect(Directives.merge(a, b, c)).toStrictEqual(expected);
   });
 });
 
-describe("when mergeDirectives() is given undefined directives", () => {
+describe("when given undefined directives", () => {
   it("should ignore undefined and merge what it can", async () => {
     const a = {
       "default-src": ["'self'", "https://foo.com"],
@@ -53,10 +53,10 @@ describe("when mergeDirectives() is given undefined directives", () => {
       "default-src": ["'self'", "https://foo.com", "https://bar.com"],
     };
 
-    expect(mergeDirectives(a, b, c, d)).toStrictEqual(expected);
+    expect(Directives.merge(a, b, c, d)).toStrictEqual(expected);
   });
 
   it("should return an empty object if all undefined", async () => {
-    expect(mergeDirectives(undefined, undefined, undefined)).toStrictEqual({});
+    expect(Directives.merge(undefined, undefined, undefined)).toStrictEqual({});
   });
 });

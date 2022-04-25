@@ -1,13 +1,13 @@
 "use strict";
 
-const { directivesToString } = require("../../lib/util");
+const Directives = require("../../lib/Directives");
 
 describe("given a single directive", () => {
   it("should return it as a string", async () => {
     const a = {
       "default-src": ["https://foo.com"],
     };
-    expect(directivesToString(a)).toBe("default-src https://foo.com");
+    expect(Directives.toString(a)).toBe("default-src https://foo.com");
   });
 });
 
@@ -16,7 +16,7 @@ describe("given one directive, two sources", () => {
     const a = {
       "default-src": ["https://foo.com", "https://bar.com"],
     };
-    expect(directivesToString(a)).toBe(
+    expect(Directives.toString(a)).toBe(
       "default-src https://foo.com https://bar.com"
     );
   });
@@ -28,7 +28,7 @@ describe("given two directives, one source each", () => {
       "default-src": ["https://foo.com"],
       "img-src": ["https://bar.com"],
     };
-    expect(directivesToString(a)).toBe(
+    expect(Directives.toString(a)).toBe(
       "default-src https://foo.com; img-src https://bar.com"
     );
   });
@@ -40,7 +40,7 @@ describe("given two directives, two sources each", () => {
       "default-src": ["https://foo-src.com", "https://bar-src.com"],
       "img-src": ["https://foo-img.com", "https://bar-img.com"],
     };
-    expect(directivesToString(a)).toBe(
+    expect(Directives.toString(a)).toBe(
       "default-src https://foo-src.com https://bar-src.com; img-src https://foo-img.com https://bar-img.com"
     );
   });
@@ -52,7 +52,7 @@ describe('given sources with "double quotes"', () => {
       "default-src": ['"self"'],
       "img-src": ['"self"'],
     };
-    expect(directivesToString(a)).toBe("default-src 'self'; img-src 'self'");
+    expect(Directives.toString(a)).toBe("default-src 'self'; img-src 'self'");
   });
 });
 
@@ -64,7 +64,7 @@ describe('given sources with "double quotes"', () => {
           "default-src": [token],
           "img-src": [token],
         };
-        expect(directivesToString(a)).toBe(
+        expect(Directives.toString(a)).toBe(
           `default-src '${token}'; img-src '${token}'`
         );
       });
@@ -76,7 +76,7 @@ describe('given sources with "double quotes"', () => {
           "default-src": [`'${token}'`],
           "img-src": [`${token}`],
         };
-        expect(directivesToString(a)).toBe(
+        expect(Directives.toString(a)).toBe(
           `default-src '${token}'; img-src '${token}'`
         );
       });
@@ -87,7 +87,7 @@ describe('given sources with "double quotes"', () => {
         const a = {
           "default-src": [`https://${token}.com`],
         };
-        expect(directivesToString(a)).toBe(`default-src https://${token}.com`);
+        expect(Directives.toString(a)).toBe(`default-src https://${token}.com`);
       });
     });
   });

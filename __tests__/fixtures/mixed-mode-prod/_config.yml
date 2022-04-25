@@ -8,6 +8,7 @@ pretty_urls:
 
 csp:
   enabled: true
+  env: prod
   prod:
     policies:
       default:
@@ -32,14 +33,17 @@ csp:
   dev:
     policies:
       default:
+        mode: merge
         directives:
           default-src:
             - https://dev-default-default.com
       markdown-1:
+        mode: replace
         directives:
           img-src:
             - https://dev-markdown-1-img.com
       markdown-2:
+        mode: replace
         directives:
           default-src:
             - https://dev-markdown-2-default-1.com

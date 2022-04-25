@@ -2,6 +2,7 @@
 title: Markdown 2
 date: 2022-04-20 05:30:00
 csp:
+  mode: replace
   directives:
     default-src:
       - https://frontmatter-markdown-2-default-1.com

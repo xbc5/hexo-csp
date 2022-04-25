@@ -1,6 +1,6 @@
 "use strict";
 
-const { applyCSP } = require("./lib/util");
+const { applyCSP } = require("./lib/markup");
 const Config = require("./lib/config");
 const { registerCli } = require("./lib/cli");
 

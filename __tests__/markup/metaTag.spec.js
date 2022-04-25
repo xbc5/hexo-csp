@@ -1,6 +1,6 @@
 "use strict";
 
-const { metaTag } = require("../../lib/util");
+const { metaTag } = require("../../lib/markup");
 
 describe("given a string", () => {
   it("should include it within a meta tags contents", async () => {
