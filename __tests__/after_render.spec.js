@@ -33,3 +33,14 @@ describe("given replace mode policies and env=dev", () => {
     });
   });
 });
+
+describe("given invalid frontmatter", () => {
+  ["markdown-1", "/"].forEach((name) => {
+    describe(`for ${name}`, () => {
+      it("should not render a CSP", async () => {
+        const render = await fixture("invalid-frontmatter");
+        expect(await render(name)).toMatchSnapshot();
+      });
+    });
+  });
+});

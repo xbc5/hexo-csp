@@ -12,7 +12,7 @@ test("that the config is cloned, and not mutated", () => {
 
   const config = new Config({
     csp: { prod: { policies: initial } },
-  }).addPolicies();
+  });
 
   // test against initial object, because defaults are injected
   // into the received config. This means that initial will be mutated

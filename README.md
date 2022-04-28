@@ -20,12 +20,6 @@ csp:
     enabled: true
     algo: sha256
   priority: 100
-  violation:
-    action:
-      - warn
-      - throw
-  mode:
-    env: merge # | replace
   prod:
     report:
       uri: /foo/bar

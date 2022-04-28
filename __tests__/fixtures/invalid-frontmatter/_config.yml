@@ -1,0 +1,10 @@
+theme: fake
+meta_generator: false
+
+permalink: :title
+pretty_urls:
+  trailing_index: false # no trailing 'index.html'
+  trailing_html: false # no trailing '.html'
+
+csp:
+  enabled: true

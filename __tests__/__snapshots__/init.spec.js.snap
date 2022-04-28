@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`given an invalid config should not render a CSP 1`] = `
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>
+      Markdown Home
+    </title>
+  </head>
+</html>
+<body>
+  <h2 id="Home">
+    Home
+  </h2>
+</body>
+`;
