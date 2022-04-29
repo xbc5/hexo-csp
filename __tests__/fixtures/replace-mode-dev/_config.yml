@@ -16,7 +16,7 @@ csp:
         directives:
           default-src:
             - https://prod-default-default.com
-      index.html:
+      /:
         mode: replace
         directives:
           default-src:

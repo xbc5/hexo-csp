@@ -1,0 +1,25 @@
+theme: fake
+meta_generator: false
+
+permalink: :year/:month/:day/:title
+pretty_urls:
+  trailing_index: false # no trailing 'index.html'
+  trailing_html: false # no trailing '.html'
+
+csp:
+  enabled: true
+  env: prod
+  prod:
+    policies:
+      /:
+        directives:
+          default-src:
+            - https://single-slash.com
+      index.html:
+        directives:
+          default-src:
+            - https://index-dot-html.com
+      /index.html:
+        directives:
+          default-src:
+            - https://slash-index-dot-html.com

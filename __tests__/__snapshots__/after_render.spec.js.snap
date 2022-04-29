@@ -202,3 +202,117 @@ exports[`given replace mode policies and env=dev for markdown-2 should replace w
   </body>
 </html>
 `;
+
+exports[`given the custom permalink / should ignore the dirname and use only the basename: / 1`] = `
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Security-Policy"
+          content="default-src https://prod-index-default.com"
+    >
+    <title>
+      Markdown Home
+    </title>
+  </head>
+  <body>
+    <h1>
+      Home
+    </h1>
+  </body>
+</html>
+`;
+
+exports[`given the custom permalink 2001/01/01/markdown-1 should ignore the dirname and use only the basename: markdown-1 1`] = `
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Security-Policy"
+          content="default-src https://prod-markdown-1-default-1.com"
+    >
+    <title>
+      Markdown 1
+    </title>
+  </head>
+  <body>
+    <h1>
+      Markdown 1
+    </h1>
+  </body>
+</html>
+`;
+
+exports[`given the custom permalink page-1/ should ignore the dirname and use only the basename: page-1 1`] = `
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Security-Policy"
+          content="default-src https://prod-page-1-default-1.com"
+    >
+    <title>
+      Page 1
+    </title>
+  </head>
+  <body>
+    <h1>
+      Page 1
+    </h1>
+  </body>
+</html>
+`;
+
+exports[`given the path "/" should only match against the "/" policy path 1`] = `
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Security-Policy"
+          content="default-src https://single-slash.com"
+    >
+    <title>
+      Markdown Home
+    </title>
+  </head>
+  <body>
+    <h1>
+      Home
+    </h1>
+  </body>
+</html>
+`;
+
+exports[`given the path "/index.html" should only match against the "/" policy path 1`] = `
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Security-Policy"
+          content="default-src https://single-slash.com"
+    >
+    <title>
+      Markdown Home
+    </title>
+  </head>
+  <body>
+    <h1>
+      Home
+    </h1>
+  </body>
+</html>
+`;
+
+exports[`given the path "index.html" should only match against the "/" policy path 1`] = `
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Security-Policy"
+          content="default-src https://single-slash.com"
+    >
+    <title>
+      Markdown Home
+    </title>
+  </head>
+  <body>
+    <h1>
+      Home
+    </h1>
+  </body>
+</html>
+`;

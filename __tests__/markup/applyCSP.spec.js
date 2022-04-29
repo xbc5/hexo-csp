@@ -13,7 +13,7 @@ describe("given valid args", () => {
       csp: {
         prod: {
           policies: {
-            ["foo/index.html"]: {
+            ["foo"]: {
               directives: {
                 "default-src": ["'self'", "https://foo.com"],
                 "img-src": ["https://bar.com"],
@@ -41,7 +41,7 @@ describe("given valid args", () => {
                 "default-src": ["https://config-default-default.com"],
               },
             },
-            ["foo/index.html"]: {
+            ["foo"]: {
               directives: {
                 "default-src": ["https://config-foo-default.com"],
               },
@@ -76,7 +76,7 @@ describe("given frontmatter", () => {
         csp: {
           prod: {
             policies: {
-              ["foo/index.html"]: {
+              ["foo"]: {
                 directives: {
                   "default-src": ["https://config-foo-default.com"],
                   "img-src": ["https://config-foo-img.com"],
@@ -111,7 +111,7 @@ describe("given frontmatter", () => {
         csp: {
           prod: {
             policies: {
-              ["foo/index.html"]: {
+              ["foo"]: {
                 directives: {
                   "default-src": ["https://config-foo-default.com"],
                   "img-src": ["https://config-foo-img.com"],
@@ -147,7 +147,7 @@ describe("given frontmatter", () => {
         csp: {
           prod: {
             policies: {
-              ["foo/index.html"]: {
+              ["foo"]: {
                 directives: {
                   "default-src": ["https://config-foo-default.com"],
                   "img-src": ["https://config-foo-img.com"],

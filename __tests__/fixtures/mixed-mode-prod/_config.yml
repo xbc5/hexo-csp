@@ -15,7 +15,7 @@ csp:
         directives:
           default-src:
             - https://prod-default-default.com
-      index.html:
+      /:
         directives:
           default-src:
             - https://prod-index-default.com

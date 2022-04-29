@@ -11,7 +11,10 @@ TODO
 Add the following snippet in `_config.yml`.
 
 NOTES:
-- the set Hexo configuration for permalinks (e.g. `trailing_index` and `trailing_html` affect what you should use for policy keys (which are page paths) -- *except in the case for your root index.html*, which is always "index.html";
+- don't match policies against `/index.html`:
+  - use `/` to match against the root document;
+  - use `foo` to match against `foo/index.html`;
+- don't match against permalinks (e.g. `2020/02/02/foo`), just match it against the document name (e.g. `foo`);
 
 ```yaml
 csp:
@@ -31,7 +34,11 @@ csp:
             - 'self'
           img-src:
             - 'self'
-      foo/index.html:
+      /:
+        directives:
+          default-src:
+            - https://example.com
+      foo:
         mode: replace
         directives:
           default-src:
@@ -50,7 +57,7 @@ csp:
             - https//dev-server.com
           img-src: 
             - self https://some-placeholer-images.com
-      foo/index.html:
+      foo:
         mode: replace
         directives:
           default-src:
