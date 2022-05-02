@@ -1,0 +1,27 @@
+#!/bin/bash
+
+subject="$2"
+
+echo -e "hash for: '$subject'\n"
+
+function sha256() {
+  echo -ne "$subject" | sha256sum | head -c 64
+}
+
+function sha384() {
+  echo -ne "$subject" | sha384sum | head -c 96
+}
+
+function sha512() {
+  echo -ne "$subject" | sha512sum | head -c 128
+}
+
+case "$1" in
+  sha256) sha256;;
+  sha256+base64) sha256 | base64;;
+  sha384) sha384;;
+  sha384+base64) sha384 | base64;;
+  sha512) sha512;;
+  sha512+base64) sha512 | base64;;
+  *) echo "unknown arg '${1}'";;
+esac

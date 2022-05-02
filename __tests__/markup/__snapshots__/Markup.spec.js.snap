@@ -1,0 +1,95 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`generate() should include 4x {{hash}}, one for each script and style tags 1`] = `
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Security-Policy"
+          content="{{hash}}; {{hash}}; {{hash}}; {{hash}}"
+    >
+    <title>
+      Fake Title
+    </title>
+    <script>
+      const a=1;
+    </script>
+    <style>
+      div {
+        css: sucks;
+      }
+    </style>
+  </head>
+  <body>
+    <script>
+      const b=1;
+    </script>
+    <style>
+      div {
+        css: is-bad;
+      }
+    </style>
+  </body>
+</html>
+`;
+
+exports[`inject() it should inject multiple meta tags 1`] = `
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Security-Policy"
+          content="default-src: 'self'"
+    >
+    <meta http-equiv="Content-Security-Policy"
+          content="default-src: 'self'"
+    >
+    <title>
+      Fake Title
+    </title>
+  </head>
+  <body>
+  </body>
+</html>
+`;
+
+exports[`inject() it should inject the given meta tag into the head element 1`] = `
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Security-Policy"
+          content="default-src: 'self'"
+    >
+    <title>
+      Fake Title
+    </title>
+  </head>
+  <body>
+  </body>
+</html>
+`;
+
+exports[`when fetching defined nodes it should only select those that have real content (not exclusively \\n \\t <space>) 1`] = `
+Array [
+  "const notEmpty = true;",
+  "
+      const notEmpty = true;
+    ",
+]
+`;
+
+exports[`when fetching script hashes and given a hash generator should include new lines and whitespace 1`] = `
+Array [
+  "
+      const a = null;
+    ",
+]
+`;
+
+exports[`when fetching style hashes and given a hash generator should include new lines and whitespace 1`] = `
+Array [
+  "
+      div {
+        css: sucks;
+      }
+    ",
+]
+`;

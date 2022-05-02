@@ -1,0 +1,24 @@
+theme: fake
+meta_generator: false
+
+permalink: :title
+pretty_urls:
+  trailing_index: false # no trailing 'index.html'
+  trailing_html: false # no trailing '.html'
+
+csp:
+  enabled: true
+  env: prod
+  inline:
+    enabled: true
+    algo: sha512
+  prod:
+    policies:
+      /:
+        directives:
+          default-src:
+            - https://prod-index-default.com
+      markdown-1:
+        directives:
+          default-src:
+            - https://prod-markdown-1-default-1.com

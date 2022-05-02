@@ -1,0 +1,15 @@
+doctype html
+html(lang='en')
+  head
+    title #{page.title}
+    script const a = 1;
+    script.
+      const b = 1;
+      const c = 1;
+    style div { color: red; }
+    style.
+      div {
+        color: blue;
+      }
+body
+  != page.content

@@ -4,6 +4,10 @@ const validate = (val) => config.validate(val);
 
 const valid = () => ({
   enabled: true,
+  inline: {
+    enabled: true,
+    algo: "sha512",
+  },
   priority: 100,
   env: "prod",
   prod: {
@@ -53,6 +57,24 @@ it("should return an error object for invalid 'enabled' prop", () => {
 it("should return an error object for invalid 'env' prop", () => {
   const conf = valid();
   conf.enabled = null;
+  expect(validate(conf).error).toBeDefined();
+});
+
+it("should return an error object for invalid 'inline' prop", () => {
+  const conf = valid();
+  conf.inline = null;
+  expect(validate(conf).error).toBeDefined();
+});
+
+it("should return an error object for invalid 'inline.algo' prop", () => {
+  const conf = valid();
+  conf.inline.algo = null;
+  expect(validate(conf).error).toBeDefined();
+});
+
+it("should return an error object for invalid 'inline.enabled' prop", () => {
+  const conf = valid();
+  conf.inline.enabled = null;
   expect(validate(conf).error).toBeDefined();
 });
 

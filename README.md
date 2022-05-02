@@ -7,6 +7,9 @@ CSP policy generator for [Hexo](https://hexo.io/). Generate an inline policy, an
 ## Installation
 TODO
 
+## Caveats
+Some CDNs will minify your documents/assets (e.g. [Cloudflare](https://support.cloudflare.com/hc/en-us/articles/200168196-Using-Cloudflare-Auto-Minify)). This will break inline code like styles and scripts. You must disable this for HTML documents if you intend to use the `inline` option. This option will hash the contents of these tags, and it must be done AFTER minifying. So, if you intend to minify your HTML, then do this as a build step BEFORE calculating the checksums for inline code.
+
 ## Configuration
 Add the following snippet in `_config.yml`.
 
@@ -19,7 +22,7 @@ NOTES:
 ```yaml
 csp:
   enabled: true
-  integrity:
+  inline:
     enabled: true
     algo: sha256
   priority: 100
