@@ -2,8 +2,8 @@
 
 const Config = require("../../lib/config");
 
-describe("for Config.policy", () => {
-  it("should return the requested policy", async () => {
+describe("for Config.directives", () => {
+  it("should return the requested directives", async () => {
     const policies = {
       default: {
         directives: {
@@ -20,13 +20,11 @@ describe("for Config.policy", () => {
     };
 
     const expected = {
-      directives: {
-        "default-src": ["'self'"],
-        "img-src": ["https://foo.com", "https://baz.com"],
-      },
+      "default-src": ["'self'"],
+      "img-src": ["https://foo.com", "https://baz.com"],
     };
     const config = new Config({ csp: { prod: { policies } } });
-    expect(config.policy("foo/index.html")).toMatchObject(expected);
+    expect(config.directives("foo/index.html")).toMatchObject(expected);
   });
 
   it("should match against multiple policies", async () => {
@@ -46,16 +44,11 @@ describe("for Config.policy", () => {
     };
 
     const expected = {
-      directives: {
-        "default-src": [
-          "https://foo-default.com",
-          "https://foobar-default.com",
-        ],
-        "img-src": ["https://foo-img.com", "https://foobar-img.com"],
-      },
+      "default-src": ["https://foo-default.com", "https://foobar-default.com"],
+      "img-src": ["https://foo-img.com", "https://foobar-img.com"],
     };
     const config = new Config({ csp: { prod: { policies } } });
-    expect(config.policy("foo/index.html")).toMatchObject(expected);
+    expect(config.directives("foo/index.html")).toMatchObject(expected);
   });
 
   describe("defaults (no policies)", () => {
@@ -71,7 +64,7 @@ describe("for Config.policy", () => {
       describe(`when the config object is ${msg}`, () => {
         it("should return an empty object", async () => {
           const config = new Config(conf);
-          expect(config.policy("foo/index.html")).toMatchObject({});
+          expect(config.directives("foo/index.html")).toMatchObject({});
         });
       });
     });

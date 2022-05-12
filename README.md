@@ -14,9 +14,10 @@ Some CDNs will minify your documents/assets (e.g. [Cloudflare](https://support.c
 Add the following snippet in `_config.yml`.
 
 NOTES:
-- don't match policies against `/index.html`:
+- paths are regular expression -- one policy can match multiple paths;
+- don't match policies against `/index.html` -- it's ignored:
   - use `/` to match against the root document;
-  - use `foo` to match against `foo/index.html`;
+  - use `^foo$` to match against `foo/index.html`;
 - don't match against permalinks (e.g. `2020/02/02/foo`), just match it against the document name (e.g. `foo`);
 
 ```yaml
@@ -31,17 +32,17 @@ csp:
       uri: /foo/bar
       enabled: true
     policies:
-      default:
+      ^bar$:
         directives:
           default-src:
             - 'self'
           img-src:
             - 'self'
-      /:
+      ^/$:
         directives:
           default-src:
             - https://example.com
-      foo:
+      ^foo.+$:
         mode: replace
         directives:
           default-src:
@@ -53,14 +54,14 @@ csp:
       uri: /foo/bar
       enabled: true
     policies:
-      default:
+      .+:
         directives
           default-src:
             - 'self' 
             - https//dev-server.com
           img-src: 
             - self https://some-placeholer-images.com
-      foo:
+      ^foo.+$:
         mode: replace
         directives:
           default-src:
