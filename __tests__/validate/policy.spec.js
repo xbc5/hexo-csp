@@ -1,52 +1,47 @@
 const { policy } = require("../../lib/validation");
 const fc = require("fast-check");
-const { assert } = require("../helpers/properties");
+const { assert, garbageObject } = require("../helpers/properties");
 const Joi = require("joi");
 
 const schema = Joi.object({
-  policy: policy(Joi.string(), Joi.object()),
+  policy: policy(Joi.object()),
 });
 
 const validate = (val) => schema.validate({ policy: val });
 
-const invalidPolicy = () => {
-  return fc.object({
-    key: fc.anything().filter((v) => typeof v !== "string"),
-    maxDepth: 0,
-    values: [
-      fc.anything().filter(
-        // strings and objects are valid, see the fake schema above
-        (v) => typeof v !== "string" && v?.constructor?.name !== "Object"
-      ),
-    ],
-  });
-};
-
 const validPolicy = (vals = {}) => ({
-  ...{ mode: "merge", directives: {} },
+  ...{ pattern: "^pattern$", prod: {}, dev: {} },
   ...vals,
 });
 
-const validPolicyStr = (...args) => JSON.stringify(validPolicy(...args));
+const validPolicyStr = () => JSON.stringify(validPolicy());
 
-it(`should accept an object ${validPolicyStr()}`, () => {
+it(`should accept a valid object: ${validPolicyStr()}`, () => {
   expect(validate(validPolicy()).error).not.toBeDefined();
 });
 
-it("should not allow empty objects", () => {
+it("should reject empty objects", () => {
   expect(validate({}).error).toBeDefined();
 });
 
-it(`should return an error object when policy is not ${validPolicyStr()}`, () => {
-  assert(invalidPolicy(), (obj) => {
-    expect(validate(obj).error).toBeDefined();
+it("should reject misshaped objects", () => {
+  assert(garbageObject(), (a) => {
+    expect(validate(a).error).toBeDefined();
   });
 });
 
-it(`should return an error object when mode is not a string`, () => {
-  expect(validate(validPolicy({ mode: null })).error).toBeDefined();
+it("should be mandatory", () => {
+  expect(validate(undefined).error).toBeDefined();
 });
 
-it(`should return an error object when directives is not an object`, () => {
-  expect(validate(validPolicy({ directives: null })).error).toBeDefined();
+it("should reject if 'pattern' is undefined", () => {
+  expect(validate(validPolicy({ pattern: undefined })).error).toBeDefined();
+});
+
+it("should accept if 'prod' is undefined", () => {
+  expect(validate(validPolicy({ prod: undefined })).error).not.toBeDefined();
+});
+
+it("should accept if 'dev' is undefined", () => {
+  expect(validate(validPolicy({ dev: undefined })).error).not.toBeDefined();
 });

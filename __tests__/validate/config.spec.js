@@ -10,42 +10,43 @@ const valid = () => ({
   },
   priority: 100,
   env: "prod",
-  prod: {
-    policies: {
-      default: {
+  policies: [
+    {
+      pattern: "^foo$",
+      prod: {
         mode: "replace",
         directives: {
           "default-src": ["https://foo.com", "https://bar.com"],
           "img-src": ["https://foo.com", "https://bar.com"],
         },
       },
-      "foo/index.html": {
-        mode: "merge",
-        directives: {
-          "img-src": ["https://foo.com"],
-        },
-      },
-    },
-  },
-  dev: {
-    policies: {
-      default: {
+      dev: {
         directives: {
           "default-src": ["https://bar.com"],
         },
       },
-      "bar/index.html": {
+    },
+    {
+      pattern: "^bar$",
+      prod: {
+        mode: "merge",
+        directives: {
+          "img-src": ["https://foo.com"],
+        },
+      },
+      dev: {
         mode: "merge",
         directives: {
           "img-src": ["https://foo.com"],
         },
       },
     },
-  },
+  ],
 });
 
 it("should accept a valid config", () => {
-  expect(validate(valid()).error).not.toBeDefined();
+  const err = validate(valid()).error;
+  expect(err).not.toBeDefined();
 });
 
 it("should return an error object for invalid 'enabled' prop", () => {
@@ -88,49 +89,61 @@ it("should return an error object for invalid 'priority' prop", () => {
   describe(`for the ${env} key`, () => {
     it("should return an error object when it's invalid", () => {
       const conf = valid();
-      conf[env] = null;
+      conf.policies.map((p) => (p[env] = null));
       expect(validate(conf).error).toBeDefined();
     });
 
     it("should be optional", () => {
       const conf = valid();
-      conf[env] = undefined;
+      conf.policies.map((p) => delete p[env]);
       expect(validate(conf).error).not.toBeDefined();
     });
 
     it("should return an error object for invalid 'policies' prop", () => {
       const conf = valid();
-      conf[env].policies = null;
+      conf.policies = null;
       expect(validate(conf).error).toBeDefined();
     });
 
-    it("should return an error object for invalid 'policy' value", () => {
+    it("should accept the policies prop as optional", () => {
       const conf = valid();
-      conf[env].policies.default = null;
+      delete conf.policies;
+      expect(validate(conf).error).not.toBeDefined();
+    });
+
+    it("should return an error object for invalid pattern value", () => {
+      const conf = valid();
+      conf.policies.map((p) => (p[env].pattern = null));
       expect(validate(conf).error).toBeDefined();
     });
 
     it("should return an error object for invalid 'directives' prop", () => {
       const conf = valid();
-      conf[env].policies.default.directives = null;
+      conf.policies.map((p) => (p[env].directives = null));
       expect(validate(conf).error).toBeDefined();
     });
 
-    it("should return an error object if 'directives' key doesn't exist", () => {
+    it("should return an error object for missing 'directives'", () => {
       const conf = valid();
-      delete conf[env].policies.default.directives;
+      conf.policies.map((p) => delete p[env].directives);
       expect(validate(conf).error).toBeDefined();
     });
 
     it("should return an error object for invalid 'mode' prop", () => {
       const conf = valid();
-      conf[env].policies.default.mode = null;
+      conf.policies.map((p) => (p[env].mode = null));
       expect(validate(conf).error).toBeDefined();
+    });
+
+    it("should allow an undefined mode", () => {
+      const conf = valid();
+      conf.policies.map((p) => delete p[env].mode);
+      expect(validate(conf).error).not.toBeDefined();
     });
 
     it("should return an error object for invalid source value", () => {
       const conf = valid();
-      conf[env].policies.default.directives["default-src"] = null;
+      conf.policies.map((p) => (p[env].directives["default-src"] = null));
       expect(validate(conf).error).toBeDefined();
     });
   });

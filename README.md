@@ -27,45 +27,22 @@ csp:
     enabled: true
     algo: sha256
   priority: 100
-  prod:
-    report:
-      uri: /foo/bar
-      enabled: true
-    policies:
-      ^bar$:
+  policies:
+    - pattern: ^bar$
+      prod:
         directives:
           default-src:
             - 'self'
           img-src:
             - 'self'
-      ^/$:
+      dev:
+        mode: replace
+        directives:
+          default-src:
+            - https://foo.com
+    - pattern: ^/$
+      prod:
         directives:
           default-src:
             - https://example.com
-      ^foo.+$:
-        mode: replace
-        directives:
-          default-src:
-            - 'self'
-          img-src:
-            - 'self'
-  dev:
-    report:
-      uri: /foo/bar
-      enabled: true
-    policies:
-      .+:
-        directives
-          default-src:
-            - 'self' 
-            - https//dev-server.com
-          img-src: 
-            - self https://some-placeholer-images.com
-      ^foo.+$:
-        mode: replace
-        directives:
-          default-src:
-            - 'self'
-          img-src:
-            - 'self'
 ```

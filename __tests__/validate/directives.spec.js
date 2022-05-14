@@ -31,6 +31,10 @@ it("should not allow empty objects", () => {
   expect(validate({}).error).toBeDefined();
 });
 
+it("should not allow undefined value", () => {
+  expect(validate(undefined).error).toBeDefined();
+});
+
 it("should return an error object for invalid source value", () => {
   assert(directive(fc.anything()), (obj) => {
     fc.pre(notArrayValues(obj));
