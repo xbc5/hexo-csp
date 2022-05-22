@@ -9,48 +9,45 @@ pretty_urls:
 csp:
   enabled: true
   env: dev
-  prod:
-    policies:
-      default:
+  policies:
+    - pattern: ^nomatch$
+      prod:
+        directives:
+          default-src:
+            - https://prod-config-nomatch-default--THIS_IS_BAD.com
+      dev:
         mode: replace
         directives:
           default-src:
-            - https://prod-default-default.com
-      /:
-        mode: replace
+            - https://dev-config-nomatch-default--THIS_IS_BAD.com
+    - pattern: ^/$
+      prod:
         directives:
           default-src:
-            - https://prod-index-default.com
-      markdown-1:
-        mode: replace
+            - https://prod-config-index-default.com
+    - pattern: ^markdown-1$
+      prod:
         directives:
           default-src:
-            - https://prod-markdown-1-default-1.com
-            - https://prod-markdown-1-default-2.com
+            - https://prod-config-markdown-1-default-1--THIS_IS_BAD.com
+            - https://prod-config-markdown-1-default-2--THIS_IS_BAD.com
           img-src:
-            - https://prod-markdown-1-img.com
-      markdown-2:
-        mode: replace
-        directives:
-          img-src:
-            - https://prod-markdown-2-img.com
-  dev:
-    policies:
-      default:
-        mode: replace
-        directives:
-          default-src:
-            - https://dev-default-default.com
-      markdown-1:
+            - https://prod-config-markdown-1-img--THIS_IS_BAD.com
+      dev:
         mode: replace
         directives:
           img-src:
-            - https://dev-markdown-1-img.com
-      markdown-2:
+            - https://dev-config-markdown-1-img--THIS_IS_BAD.com
+    - pattern: ^markdown-2$
+      prod:
+        directives:
+          img-src:
+            - https://prod-config-markdown-2-img--THIS_IS_BAD.com
+      dev:
         mode: replace
         directives:
           default-src:
-            - https://dev-markdown-2-default-1.com
-            - https://dev-markdown-2-default-2.com
+            - https://dev-config-markdown-2-default-1--THIS_IS_BAD.com
+            - https://dev-config-markdown-2-default-2--THIS_IS_BAD.com
           img-src:
-            - https://dev-markdown-2-img.com
+            - https://dev-config-markdown-2-img--THIS_IS_BAD.com

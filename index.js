@@ -4,6 +4,7 @@ const { applyCSP } = require("./lib/markup");
 const Config = require("./lib/config-factory");
 const { registerCli } = require("./lib/cli");
 const util = require("util");
+const Policies = require("./lib/Policies");
 
 registerCli(hexo);
 
@@ -31,11 +32,15 @@ function handleRender(hexo) {
   if (config.enabled) {
     if (error(config.validate(), hexo)) return;
 
+    const policies = new Policies({ env: config.env });
+    if (config.policies) config.policies.forEach((p) => policies.savePolicy(p));
+
     hexo.extend.filter.register(
       "after_render:html",
       function run(str, data) {
-        // TODO: you need to handle default path
-        return applyCSP(config, data, str, (e) => error(e, hexo, data.path));
+        return applyCSP(config, policies, data, str, (e) => {
+          return error(e, hexo, data.path);
+        });
       },
       config.priority
     );

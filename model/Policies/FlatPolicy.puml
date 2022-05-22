@@ -1,0 +1,9 @@
+@startjson
+{
+  "pattern": "<RegExp>",
+  "mode": "merge|replace",
+  "directives": {
+    "<directive-name>.": ["<source>", "<source>"]
+  }
+}
+@endjson

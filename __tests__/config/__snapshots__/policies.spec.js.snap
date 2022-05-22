@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should return the specified policies as-is 1`] = `
+Array [
+  Object {
+    "dev": Object {
+      "directives": Object {
+        "default-src": Array [
+          "https://dev-foo-default.com",
+        ],
+      },
+      "mode": "merge",
+    },
+    "pattern": "^foo$",
+    "prod": Object {
+      "directives": Object {
+        "default-src": Array [
+          "https://prod-foo-default.com",
+        ],
+      },
+      "mode": "merge",
+    },
+  },
+  Object {
+    "dev": Object {
+      "directives": Object {
+        "default-src": Array [
+          "https://dev-bar-default.com",
+        ],
+      },
+      "mode": "merge",
+    },
+    "pattern": "^bar$",
+    "prod": Object {
+      "directives": Object {
+        "default-src": Array [
+          "https://prod-bar-default.com",
+        ],
+      },
+      "mode": "merge",
+    },
+  },
+]
+`;

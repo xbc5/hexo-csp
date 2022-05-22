@@ -1,0 +1,30 @@
+@startuml
+class Policies {
+  {field} -policies: BasePolicy[]
+  {method} +combineEnvs(subject: Policy) => FlatPolicy
+  {method} +combinePolicy(subject: FlatPolicy) => BasePolicy[]
+  {method} +usePolicy(subject: Policy) => BasePolicy[]
+  {method} +savePolicy(subject: Policy) => BasePolicy[]
+}
+
+class Policies
+note right
+  FlatPolicy is Policy
+  without environment keys:
+
+  **Policy**:
+  { dev.directives;
+    prod.directives; }
+
+  **FlatPolicy**:
+  { directives }
+
+  **BasePolicy** is a FlatPolicy
+  without superfluous props --
+  e.g. "mode", which is no
+  longer needed, and could
+  be considered confusing.
+end note
+@enduml
+
+

@@ -1,0 +1,51 @@
+@startuml
+start
+partition "the subject" {
+  :receive subject;
+  switch (existing environments)
+    case (dev)
+      :use dev;
+    case (prod)
+      :use prod;
+    case (both)
+      partition #8888ff "**process**: combine envs" {
+        switch (check **dev** mode)
+          case (merge)
+            :merge: dev => prod;
+            :mode = **prods** mode;
+          case (replace)
+            :replace: dev => prod;
+            :mode = replace;
+        endswitch
+      }
+    case (none)
+      :use empty object;
+  endswitch
+}
+
+partition #8888ff "**process**: combine policies" {
+  :get **saved** policies;
+  :filter matching policies;
+  switch (check **subject** mode)
+    case (merge)
+      :merge: subject => saved; 
+    case (replace)
+      :replace: subject => saved; 
+  endswitch
+}
+
+:remove mode;
+note left
+  We don't need it: these
+  are base policies and
+  will never merge into
+  anything else.
+end note
+:return;
+note right
+  Don't save. Make this
+  reusable for oneshots
+  (temporary results).
+endnote
+stop
+@enduml

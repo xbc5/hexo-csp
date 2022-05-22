@@ -12,13 +12,14 @@ csp:
   inline:
     enabled: true
     algo: sha512
-  prod:
-    policies:
-      /:
+  policies:
+    - pattern: ^/$
+      prod:
         directives:
           default-src:
             - https://prod-index-default.com
-      markdown-1:
+    - pattern: ^markdown-1$
+      prod:
         directives:
           default-src:
             - https://prod-markdown-1-default-1.com

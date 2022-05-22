@@ -1,0 +1,149 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`directives() when passing policies via a method arg should not return any policies if not matched 1`] = `Object {}`;
+
+exports[`directives() when passing policies via a method arg should return multiple matched policies 1`] = `
+Object {
+  "default-src": Array [
+    "https://default-foo-arg.com",
+    "https://default-bar-arg.com",
+  ],
+  "img-src": Array [
+    "https://img-foo-arg.com",
+    "https://img-bar-arg.com",
+  ],
+}
+`;
+
+exports[`directives() when passing policies via a method arg should return the matched policy 1`] = `
+Object {
+  "default-src": Array [
+    "https://default-foo-arg.com",
+  ],
+  "img-src": Array [
+    "https://img-foo-arg.com",
+  ],
+}
+`;
+
+exports[`directives() when passing policies via the constructor should not return any policies if not matched 1`] = `Object {}`;
+
+exports[`directives() when passing policies via the constructor should return multiple matched policies 1`] = `
+Object {
+  "default-src": Array [
+    "https://default-foo-base.com",
+    "https://default-bar-base.com",
+  ],
+  "img-src": Array [
+    "https://img-foo-base.com",
+    "https://img-bar-base.com",
+  ],
+}
+`;
+
+exports[`directives() when passing policies via the constructor should return the matched policy 1`] = `
+Object {
+  "default-src": Array [
+    "https://default-foo-base.com",
+  ],
+  "img-src": Array [
+    "https://img-foo-base.com",
+  ],
+}
+`;
+
+exports[`match() when passing policies via a method arg should not return any policies if not matched 1`] = `Array []`;
+
+exports[`match() when passing policies via a method arg should return multiple matched policies 1`] = `
+Array [
+  Object {
+    "directives": Object {
+      "default-src": Array [
+        "https://default-foo-arg.com",
+      ],
+      "img-src": Array [
+        "https://img-foo-arg.com",
+      ],
+    },
+    "mode": "merge",
+    "pattern": "foo",
+  },
+  Object {
+    "directives": Object {
+      "default-src": Array [
+        "https://default-bar-arg.com",
+      ],
+      "img-src": Array [
+        "https://img-bar-arg.com",
+      ],
+    },
+    "mode": "merge",
+    "pattern": "bar",
+  },
+]
+`;
+
+exports[`match() when passing policies via a method arg should return the matched policy 1`] = `
+Array [
+  Object {
+    "directives": Object {
+      "default-src": Array [
+        "https://default-foo-arg.com",
+      ],
+      "img-src": Array [
+        "https://img-foo-arg.com",
+      ],
+    },
+    "mode": "merge",
+    "pattern": "^foo$",
+  },
+]
+`;
+
+exports[`match() when passing policies via the constructor should not return any policies if not matched 1`] = `Array []`;
+
+exports[`match() when passing policies via the constructor should return multiple matched policies 1`] = `
+Array [
+  Object {
+    "directives": Object {
+      "default-src": Array [
+        "https://default-foo-base.com",
+      ],
+      "img-src": Array [
+        "https://img-foo-base.com",
+      ],
+    },
+    "mode": "merge",
+    "pattern": "foo",
+  },
+  Object {
+    "directives": Object {
+      "default-src": Array [
+        "https://default-bar-base.com",
+      ],
+      "img-src": Array [
+        "https://img-bar-base.com",
+      ],
+    },
+    "mode": "merge",
+    "pattern": "bar",
+  },
+]
+`;
+
+exports[`match() when passing policies via the constructor should return the matched policy 1`] = `
+Array [
+  Object {
+    "directives": Object {
+      "default-src": Array [
+        "https://default-foo-base.com",
+      ],
+      "img-src": Array [
+        "https://img-foo-base.com",
+      ],
+    },
+    "mode": "merge",
+    "pattern": "^foo$",
+  },
+]
+`;

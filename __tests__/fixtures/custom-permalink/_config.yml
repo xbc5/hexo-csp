@@ -9,17 +9,19 @@ pretty_urls:
 csp:
   enabled: true
   env: prod
-  prod:
-    policies:
-      /:
+  policies:
+    - pattern: ^/$
+      prod:
         directives:
           default-src:
             - https://prod-index-default.com
-      page-1:
+    - pattern: ^page-1$
+      prod:
         directives:
           default-src:
             - https://prod-page-1-default-1.com
-      markdown-1:
+    - pattern: ^markdown-1$
+      prod:
         directives:
           default-src:
             - https://prod-markdown-1-default-1.com

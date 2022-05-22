@@ -1,8 +1,18 @@
 "use strict";
 
 const Config = require("../../lib/config");
+const Policies = require("../../lib/Policies");
 const { applyCSP } = require("../../lib/markup");
 const template = require("../helpers/template");
+
+function run(conf, data, str, err) {
+  const c = new Config(conf);
+  const policies = new Policies();
+  // policies are combined when the app is initialised, so combine them
+  // with savePolicy to emulate this.
+  conf?.csp?.policies?.forEach((p) => policies.savePolicy(p));
+  return applyCSP(c, policies, data, str, err);
+}
 
 // TODO:
 // - test dev env;
@@ -11,22 +21,22 @@ describe("given valid args", () => {
   it("should return the markup with CSP applied", async () => {
     const c = {
       csp: {
-        prod: {
-          policies: {
-            ["foo"]: {
+        policies: [
+          {
+            prod: {
+              pattern: "foo",
               directives: {
                 "default-src": ["'self'", "https://foo.com"],
                 "img-src": ["https://bar.com"],
               },
             },
           },
-        },
+        ],
       },
     };
     const data = { path: "foo/index.html" };
 
-    const config = new Config(c);
-    const markup = applyCSP(config, data, template.noMeta);
+    const markup = run(c, data, template.noMeta);
 
     expect(markup).toMatchSnapshot();
   });
@@ -34,36 +44,41 @@ describe("given valid args", () => {
   it("should apply only the corresponding polices for that path (foo/index.html", async () => {
     const c = {
       csp: {
-        prod: {
-          policies: {
-            default: {
+        policies: [
+          {
+            pattern: "^bar$",
+            prod: {
               directives: {
                 "default-src": ["https://config-default-default.com"],
               },
             },
-            ["foo"]: {
+          },
+          {
+            pattern: "^foo",
+            prod: {
               directives: {
                 "default-src": ["https://config-foo-default.com"],
               },
             },
           },
-        },
+        ],
       },
     };
     const data = {
       path: "foo/index.html",
       page: {
         csp: {
-          mode: "merge",
-          directives: {
-            "default-src": ["https://frontmatter-foo-default.com"],
+          prod: {
+            mode: "merge",
+            directives: {
+              "default-src": ["https://frontmatter-foo-default.com"],
+            },
           },
         },
       },
     };
 
-    const config = new Config(c);
-    const markup = applyCSP(config, data, template.noMeta);
+    const markup = run(c, data, template.noMeta);
 
     expect(markup).toMatchSnapshot();
   });
@@ -74,32 +89,35 @@ describe("given frontmatter", () => {
     it("should merge the frontmatter and return the markup", async () => {
       const c = {
         csp: {
-          prod: {
-            policies: {
-              ["foo"]: {
+          policies: [
+            {
+              pattern: "foo",
+              prod: {
                 directives: {
                   "default-src": ["https://config-foo-default.com"],
                   "img-src": ["https://config-foo-img.com"],
                 },
               },
             },
-          },
+          ],
         },
       };
       const data = {
         path: "foo/index.html",
         page: {
           csp: {
-            directives: {
-              "default-src": ["https://frontmatter-foo-default.com"],
-              "img-src": ["https://frontmatter-foo-img.com"],
+            prod: {
+              // FIXME: pattern?
+              directives: {
+                "default-src": ["https://frontmatter-foo-default.com"],
+                "img-src": ["https://frontmatter-foo-img.com"],
+              },
             },
           },
         },
       };
 
-      const config = new Config(c);
-      const markup = applyCSP(config, data, template.noMeta);
+      const markup = run(c, data, template.noMeta);
 
       expect(markup).toMatchSnapshot();
     });
@@ -109,33 +127,36 @@ describe("given frontmatter", () => {
     it("should merge the frontmatter and return the markup", async () => {
       const c = {
         csp: {
-          prod: {
-            policies: {
-              ["foo"]: {
+          policies: [
+            {
+              pattern: "foo",
+              prod: {
                 directives: {
                   "default-src": ["https://config-foo-default.com"],
                   "img-src": ["https://config-foo-img.com"],
                 },
               },
             },
-          },
+          ],
         },
       };
       const data = {
         path: "foo/index.html",
         page: {
           csp: {
-            mode: "merge",
-            directives: {
-              "default-src": ["https://frontmatter-foo-default.com"],
-              "img-src": ["https://frontmatter-foo-img.com"],
+            // FIXME: pattern?
+            prod: {
+              mode: "merge",
+              directives: {
+                "default-src": ["https://frontmatter-foo-default.com"],
+                "img-src": ["https://frontmatter-foo-img.com"],
+              },
             },
           },
         },
       };
 
-      const config = new Config(c);
-      const markup = applyCSP(config, data, template.noMeta);
+      const markup = run(c, data, template.noMeta);
 
       expect(markup).toMatchSnapshot();
     });
@@ -145,33 +166,39 @@ describe("given frontmatter", () => {
     it("should replace the config with the frontmatter and return the markup", async () => {
       const c = {
         csp: {
-          prod: {
-            policies: {
-              ["foo"]: {
+          policies: [
+            {
+              // applyCSP encloses the path (minus index) with ^$:
+              // foo/index.html => ^foo$, and uses that value to do a literal
+              // comparison. If that comparison doesn't match, then no policies
+              // will get replaced. So use ^foo$ so that the patterns are identical.
+              pattern: "^foo$",
+              prod: {
                 directives: {
                   "default-src": ["https://config-foo-default.com"],
                   "img-src": ["https://config-foo-img.com"],
                 },
               },
             },
-          },
+          ],
         },
       };
       const data = {
         path: "foo/index.html",
         page: {
           csp: {
-            mode: "replace",
-            directives: {
-              "default-src": ["https://frontmatter-foo-default.com"],
-              "img-src": ["https://frontmatter-foo-img.com"],
+            prod: {
+              mode: "replace",
+              directives: {
+                "default-src": ["https://frontmatter-foo-default.com"],
+                "img-src": ["https://frontmatter-foo-img.com"],
+              },
             },
           },
         },
       };
 
-      const config = new Config(c);
-      const markup = applyCSP(config, data, template.noMeta);
+      const markup = run(c, data, template.noMeta);
 
       expect(markup).toMatchSnapshot();
     });
@@ -185,16 +212,15 @@ describe("given no directives to apply", () => {
     {},
     { page: {} },
     { page: { csp: {} } },
-    { page: { csp: { prod: {} } } },
-    { page: { csp: { prod: { policies: {} } } } },
+    { page: { csp: { policies: [] } } },
+    { page: { csp: { policies: [{ prod: {} }] } } },
+    { page: { csp: { policies: [{ prod: { directves: {} } }] } } },
   ].forEach((c) => {
     const param = c === undefined ? undefined : JSON.stringify(c);
     describe(`i.e. the config object is ${param}`, () => {
       it("it should return the original markup", async () => {
         const data = { path: "foo/index.html" };
-        const config = new Config(c);
-        const markup = applyCSP(config, data, template.noMeta);
-
+        const markup = run(c, data, template.noMeta);
         expect(markup).toBe(template.noMeta);
       });
     });
@@ -210,9 +236,10 @@ describe("for inline tags", () => {
             enabled: true,
             algo: "sha256",
           },
-          prod: {
-            policies: {
-              ["foo"]: {
+          policies: [
+            {
+              pattern: "foo",
+              prod: {
                 directives: {
                   "style-src": ["https://policy-foo-style.com"],
                   "script-src": ["https://policy-foo-script.com"],
@@ -220,13 +247,12 @@ describe("for inline tags", () => {
                 },
               },
             },
-          },
+          ],
         },
       };
       const data = { path: "foo/index.html" };
 
-      const config = new Config(c);
-      const markup = applyCSP(config, data, template.mixedStyleScripts);
+      const markup = run(c, data, template.mixedStyleScripts);
 
       expect(markup).toMatchSnapshot();
     });
@@ -294,12 +320,7 @@ describe("for inline tags", () => {
         };
         const data = { path: "foo/index.html" };
 
-        const config = new Config(c);
-        const markup = applyCSP(
-          config,
-          data,
-          template.mixedStyleScriptsForHashing
-        );
+        const markup = run(c, data, template.mixedStyleScriptsForHashing);
 
         expect(markup).toMatchSnapshot();
       });
@@ -314,9 +335,10 @@ describe("for inline tags", () => {
             enabled: false,
             algo: "sha256",
           },
-          prod: {
-            policies: {
-              ["foo"]: {
+          policies: [
+            {
+              pattern: "foo",
+              prod: {
                 directives: {
                   "style-src": ["https://policy-foo-style.com"],
                   "script-src": ["https://policy-foo-script.com"],
@@ -324,13 +346,12 @@ describe("for inline tags", () => {
                 },
               },
             },
-          },
+          ],
         },
       };
       const data = { path: "foo/index.html" };
 
-      const config = new Config(c);
-      const markup = applyCSP(config, data, template.mixedStyleScripts);
+      const markup = run(c, data, template.mixedStyleScripts);
 
       expect(markup).toMatchSnapshot();
     });

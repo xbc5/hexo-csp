@@ -94,7 +94,7 @@ exports[`given mixed mode policies and env=prod for / should merge and render th
 <html lang="en">
   <head>
     <meta http-equiv="Content-Security-Policy"
-          content="default-src https://frontmatter-home-default.com; img-src https://frontmatter-home-img.com"
+          content="default-src https://prod-frontmatter-home-default.com; img-src https://prod-frontmatter-home-img.com"
     >
     <title>
       Markdown Home
@@ -151,7 +151,7 @@ exports[`given replace mode policies and env=dev for / should replace where appr
 <html lang="en">
   <head>
     <meta http-equiv="Content-Security-Policy"
-          content="default-src https://prod-index-default.com https://frontmatter-home-default.com; img-src https://frontmatter-home-img.com"
+          content="default-src https://prod-config-index-default.com https://dev-frontmatter-home-default.com; img-src https://dev-frontmatter-home-img.com"
     >
     <title>
       Markdown Home
@@ -170,7 +170,7 @@ exports[`given replace mode policies and env=dev for markdown-1 should replace w
 <html lang="en">
   <head>
     <meta http-equiv="Content-Security-Policy"
-          content="default-src https://frontmatter-markdown-1-default-1.com https://frontmatter-markdown-1-default-2.com; img-src https://frontmatter-markdown-1-img-1.com https://frontmatter-markdown-1-img-2.com"
+          content="default-src https://dev-frontmatter-markdown-1-default-1.com https://dev-frontmatter-markdown-1-default-2.com; img-src https://dev-frontmatter-markdown-1-img-1.com https://dev-frontmatter-markdown-1-img-2.com"
     >
     <title>
       Markdown 1
@@ -189,7 +189,7 @@ exports[`given replace mode policies and env=dev for markdown-2 should replace w
 <html lang="en">
   <head>
     <meta http-equiv="Content-Security-Policy"
-          content="default-src https://frontmatter-markdown-2-default-1.com https://frontmatter-markdown-2-default-2.com; img-src https://frontmatter-markdown-2-img-1.com https://frontmatter-markdown-2-img-2.com"
+          content="default-src https://dev-frontmatter-markdown-2-default-1.com https://dev-frontmatter-markdown-2-default-2.com; img-src https://dev-frontmatter-markdown-2-img-1.com https://dev-frontmatter-markdown-2-img-2.com"
     >
     <title>
       Markdown 2

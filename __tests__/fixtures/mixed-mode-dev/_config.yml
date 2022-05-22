@@ -9,40 +9,41 @@ pretty_urls:
 csp:
   enabled: true
   env: dev
-  prod:
-    policies:
-      default:
+  policies:
+    - pattern: ^nomatch$
+      prod:
         directives:
           default-src:
             - https://prod-default-default.com
-      /:
+      dev:
+        mode: merge
+        directives:
+          default-src:
+            - https://dev-default-default.com
+    - pattern: ^/$
+      prod:
         directives:
           default-src:
             - https://prod-index-default.com
-      markdown-1:
+    - pattern: ^markdown-1$
+      prod:
         directives:
           default-src:
             - https://prod-markdown-1-default-1.com
             - https://prod-markdown-1-default-2.com
           img-src:
             - https://prod-markdown-1-img.com
-      markdown-2:
-        directives:
-          img-src:
-            - https://prod-markdown-2-img.com
-  dev:
-    policies:
-      default:
-        mode: merge
-        directives:
-          default-src:
-            - https://dev-default-default.com
-      markdown-1:
+      dev:
         mode: replace
         directives:
           img-src:
             - https://dev-markdown-1-img.com
-      markdown-2:
+    - pattern: ^markdown-2$
+      prod:
+        directives:
+          img-src:
+            - https://prod-markdown-2-img.com
+      dev:
         mode: replace
         directives:
           default-src:

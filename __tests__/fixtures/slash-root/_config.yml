@@ -9,17 +9,19 @@ pretty_urls:
 csp:
   enabled: true
   env: prod
-  prod:
-    policies:
-      /:
+  policies:
+    - pattern: ^/$
+      prod:
         directives:
           default-src:
             - https://single-slash.com
-      index.html:
+    - pattern: ^index.html$
+      prod:
         directives:
           default-src:
             - https://index-dot-html.com
-      /index.html:
+    - pattern: ^/index.html$
+      prod:
         directives:
           default-src:
             - https://slash-index-dot-html.com

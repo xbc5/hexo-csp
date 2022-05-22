@@ -24,6 +24,7 @@ describe("given mixed mode policies and env=dev", () => {
   });
 });
 
+// TODO: test prod replace mode
 describe("given replace mode policies and env=dev", () => {
   ["markdown-1", "markdown-2", "/"].forEach((name) => {
     describe(`for ${name}`, () => {

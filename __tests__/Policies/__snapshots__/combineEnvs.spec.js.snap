@@ -1,0 +1,63 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`for the given mode and env env=dev; mode=merge should return a FlatPolicy with expected values 1`] = `
+Object {
+  "directives": Object {
+    "default-src": Array [
+      "https://prod-default-1.com",
+      "https://dev-default-1.com",
+    ],
+    "img-src": Array [
+      "https://prod-img-1.com",
+      "https://dev-img-1.com",
+    ],
+  },
+  "mode": "merge",
+  "pattern": "^foo$",
+}
+`;
+
+exports[`for the given mode and env env=dev; mode=replace should return a FlatPolicy with expected values 1`] = `
+Object {
+  "directives": Object {
+    "default-src": Array [
+      "https://dev-default-1.com",
+    ],
+    "img-src": Array [
+      "https://dev-img-1.com",
+    ],
+  },
+  "mode": "replace",
+  "pattern": "^foo$",
+}
+`;
+
+exports[`for the given mode and env env=prod; mode=merge should return a FlatPolicy with expected values 1`] = `
+Object {
+  "directives": Object {
+    "default-src": Array [
+      "https://prod-default-1.com",
+    ],
+    "img-src": Array [
+      "https://prod-img-1.com",
+    ],
+  },
+  "mode": "merge",
+  "pattern": "^foo$",
+}
+`;
+
+exports[`for the given mode and env env=prod; mode=replace should return a FlatPolicy with expected values 1`] = `
+Object {
+  "directives": Object {
+    "default-src": Array [
+      "https://prod-default-1.com",
+    ],
+    "img-src": Array [
+      "https://prod-img-1.com",
+    ],
+  },
+  "mode": "merge",
+  "pattern": "^foo$",
+}
+`;

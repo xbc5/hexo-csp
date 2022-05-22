@@ -1,0 +1,81 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`for savePolicy() when path doesn't match should append it to policies, instead of replacing 1`] = `
+Array [
+  Object {
+    "directives": Object {
+      "default-src": Array [
+        "https://default-foo-base.com",
+      ],
+      "img-src": Array [
+        "https://img-foo-base.com",
+      ],
+    },
+    "pattern": "^foo$",
+  },
+  Object {
+    "directives": Object {
+      "default-src": Array [
+        "https://default-bar-base.com",
+      ],
+      "img-src": Array [
+        "https://img-bar-base.com",
+      ],
+    },
+    "pattern": "^bar$",
+  },
+  Object {
+    "directives": Object {
+      "default-src": Array [
+        "https://prod-default-foo-arg.com",
+        "https://dev-default-foo-arg.com",
+      ],
+      "img-src": Array [
+        "https://prod-img-foo-arg.com",
+        "https://dev-img-foo-arg.com",
+      ],
+    },
+    "pattern": "^added$",
+  },
+]
+`;
+
+exports[`for usePolicy() when path doesn't match should append it to policies, instead of replacing 1`] = `
+Array [
+  Object {
+    "directives": Object {
+      "default-src": Array [
+        "https://default-foo-base.com",
+      ],
+      "img-src": Array [
+        "https://img-foo-base.com",
+      ],
+    },
+    "pattern": "^foo$",
+  },
+  Object {
+    "directives": Object {
+      "default-src": Array [
+        "https://default-bar-base.com",
+      ],
+      "img-src": Array [
+        "https://img-bar-base.com",
+      ],
+    },
+    "pattern": "^bar$",
+  },
+  Object {
+    "directives": Object {
+      "default-src": Array [
+        "https://prod-default-foo-arg.com",
+        "https://dev-default-foo-arg.com",
+      ],
+      "img-src": Array [
+        "https://prod-img-foo-arg.com",
+        "https://dev-img-foo-arg.com",
+      ],
+    },
+    "pattern": "^added$",
+  },
+]
+`;

@@ -1,284 +1,64 @@
 "use strict";
 const Config = require("../../lib/config");
 
-const DEFAULT = {};
+const policies = () => [
+  {
+    pattern: "^foo$",
+    prod: {
+      mode: "merge",
+      directives: {
+        ["default-src"]: ["https://prod-foo-default.com"],
+      },
+    },
+    dev: {
+      mode: "merge",
+      directives: {
+        ["default-src"]: ["https://dev-foo-default.com"],
+      },
+    },
+  },
+  {
+    pattern: "^bar$",
+    prod: {
+      mode: "merge",
+      directives: {
+        ["default-src"]: ["https://prod-bar-default.com"],
+      },
+    },
+    dev: {
+      mode: "merge",
+      directives: {
+        ["default-src"]: ["https://dev-bar-default.com"],
+      },
+    },
+  },
+];
 
-describe("for Config.policies in a production environment", () => {
-  describe("when only prod policies are specified", () => {
-    it("should return the provided value", async () => {
-      const policies = {
-        default: {
-          directives: {
-            "default-src": ["'self'"],
-            "img-src": ["https://bar.com"],
-          },
-        },
-        "foo/index.html": {
-          directives: {
-            "default-src": ["'self'", "https://baz.com"],
-            "img-src": ["https://foo.com"],
-          },
-        },
-      };
-
-      const expected = {
-        default: {
-          directives: {
-            "default-src": ["'self'"],
-            "img-src": ["https://bar.com"],
-          },
-        },
-        "foo/index.html": {
-          directives: {
-            "default-src": ["'self'", "https://baz.com"],
-            "img-src": ["https://foo.com"],
-          },
-        },
-      };
-      const config = new Config({ csp: { prod: { policies } } });
-      expect(config.policies).toMatchObject(expected);
-    });
-
-    it("should return an empty object if no policies", async () => {
-      const config = new Config({ csp: { prod: {} } });
-      expect(config.policies).toMatchObject(DEFAULT);
-    });
-
-    it("should return an empty object if no prod object", async () => {
-      const config = new Config({ csp: {} });
-      expect(config.policies).toMatchObject(DEFAULT);
-    });
+const factory = (p = policies()) =>
+  new Config({
+    csp: { policies: p },
   });
 
-  describe("when both prod and dev policies are specified", () => {
-    it("should return only the prod policies", async () => {
-      const prod = {
-        default: {
-          directives: {
-            "default-src": ["https://prod-default.com"],
-            "img-src": ["https://prod-default.com"],
-          },
-        },
-        "foo/index.html": {
-          directives: {
-            "img-src": ["https://prod-foo.com"],
-          },
-        },
-      };
-      const dev = {
-        default: {
-          directives: {
-            "img-src": ["https://dev-default.com"],
-          },
-        },
-        "foo/index.html": {
-          directives: {
-            "default-src": ["https://dev-foo.com"],
-          },
-        },
-      };
-
-      const expected = {
-        default: {
-          directives: {
-            "default-src": ["https://prod-default.com"],
-            "img-src": ["https://prod-default.com"],
-          },
-        },
-        "foo/index.html": {
-          directives: {
-            "img-src": ["https://prod-foo.com"],
-          },
-        },
-      };
-      const config = new Config({
-        csp: { prod: { policies: prod }, dev: { policies: dev } },
-      });
-      expect(config.policies).toMatchObject(expected);
-    });
-  });
+it("should return the specified policies as-is", async () => {
+  const result = factory().policies;
+  expect(result).toMatchSnapshot();
 });
 
-describe("for Config.policies in a dev environment", () => {
-  describe("when only prod policies are specified", () => {
-    it("should return the prod policies", async () => {
-      const prod = {
-        default: {
-          directives: {
-            "default-src": ["https://prod-default.com"],
-            "img-src": ["https://prod-default.com"],
-          },
-        },
-        "foo/index.html": {
-          directives: {
-            "img-src": ["https://prod-foo.com"],
-          },
-        },
-      };
+it("should return an empty array if there's no policies", async () => {
+  const result = factory(null).policies;
+  expect(result).toStrictEqual([]);
+});
 
-      const expected = {
-        default: {
-          directives: {
-            "default-src": ["https://prod-default.com"],
-            "img-src": ["https://prod-default.com"],
-          },
-        },
-        "foo/index.html": {
-          directives: {
-            "img-src": ["https://prod-foo.com"],
-          },
-        },
-      };
-      const config = new Config({
-        csp: { env: "dev", prod: { policies: prod } },
-      });
-      expect(config.policies).toMatchObject(expected);
-    });
-  });
+it("should return a clone", async () => {
+  // WARN: the constructor clones the entire config, and "policies" getter also clones
+  // so even if you remove the getter clone, this will still pass. Leave this in place
+  // just in case.
+  const p = policies();
+  const result = factory(p).policies;
 
-  describe("when mode: merge", () => {
-    it("should merge PATHS with production policies", async () => {
-      const prod = {
-        default: {
-          directives: {
-            "default-src": ["https://prod-default.com"],
-          },
-        },
-        "foo/index.html": {
-          directives: {
-            "img-src": ["https://prod-foo.com"],
-          },
-        },
-      };
-      const dev = {
-        default: {
-          directives: {
-            "img-src": ["https://dev-default.com"],
-          },
-        },
-        "foo/index.html": {
-          directives: {
-            "default-src": ["https://dev-foo.com"],
-          },
-        },
-      };
+  p[0].pattern = "changed";
+  p[0].prod.directives["default-src"].push("changed");
+  p[0].prod.mode = "changed";
 
-      const expected = {
-        default: {
-          directives: {
-            "default-src": ["https://prod-default.com"],
-            "img-src": ["https://dev-default.com"],
-          },
-        },
-        "foo/index.html": {
-          directives: {
-            "img-src": ["https://prod-foo.com"],
-            "default-src": ["https://dev-foo.com"],
-          },
-        },
-      };
-      const config = new Config({
-        csp: { env: "dev", prod: { policies: prod }, dev: { policies: dev } },
-      });
-      expect(config.policies).toMatchObject(expected);
-    });
-
-    it("should merge SOURCES with production", async () => {
-      const prod = {
-        default: {
-          directives: {
-            "default-src": ["https://prod-default.com"],
-          },
-        },
-        "foo/index.html": {
-          directives: {
-            "img-src": ["https://prod-foo.com"],
-          },
-        },
-      };
-      const dev = {
-        default: {
-          directives: {
-            "default-src": ["https://dev-default.com"],
-          },
-        },
-        "foo/index.html": {
-          directives: {
-            "img-src": ["https://dev-foo.com"],
-          },
-        },
-      };
-
-      const expected = {
-        default: {
-          directives: {
-            "default-src": [
-              "https://prod-default.com",
-              "https://dev-default.com",
-            ],
-          },
-        },
-        "foo/index.html": {
-          directives: {
-            "img-src": ["https://prod-foo.com", "https://dev-foo.com"],
-          },
-        },
-      };
-      const config = new Config({
-        csp: { env: "dev", prod: { policies: prod }, dev: { policies: dev } },
-      });
-      expect(config.policies).toMatchObject(expected);
-    });
-
-    it("should merge PATHS and SOURCES with production", async () => {
-      const prod = {
-        default: {
-          directives: {
-            "default-src": ["https://prod-default.com"],
-            "img-src": ["https://prod-default.com"],
-          },
-        },
-        "foo/index.html": {
-          directives: {
-            "img-src": ["https://prod-foo.com"],
-          },
-        },
-      };
-      const dev = {
-        default: {
-          directives: {
-            "default-src": ["https://dev-default.com"],
-          },
-        },
-        "foo/index.html": {
-          directives: {
-            "default-src": ["https://dev-foo.com"],
-            "img-src": ["https://dev-foo.com"],
-          },
-        },
-      };
-
-      const expected = {
-        default: {
-          directives: {
-            "default-src": [
-              "https://prod-default.com",
-              "https://dev-default.com",
-            ],
-            "img-src": ["https://prod-default.com"],
-          },
-        },
-        "foo/index.html": {
-          directives: {
-            "default-src": ["https://dev-foo.com"],
-            "img-src": ["https://prod-foo.com", "https://dev-foo.com"],
-          },
-        },
-      };
-      const config = new Config({
-        csp: { env: "dev", prod: { policies: prod }, dev: { policies: dev } },
-      });
-      expect(config.policies).toMatchObject(expected);
-    });
-  });
+  expect(result).toStrictEqual(policies());
 });
