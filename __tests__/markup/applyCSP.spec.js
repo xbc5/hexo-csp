@@ -10,7 +10,7 @@ function run(conf, data, str, err) {
   const policies = new Policies();
   // policies are combined when the app is initialised, so combine them
   // with savePolicy to emulate this.
-  conf?.csp?.policies?.forEach((p) => policies.savePolicy(p));
+  conf?.policies?.forEach((p) => policies.savePolicy(p));
   return applyCSP(c, policies, data, str, err);
 }
 
@@ -20,19 +20,17 @@ function run(conf, data, str, err) {
 describe("given valid args", () => {
   it("should return the markup with CSP applied", async () => {
     const c = {
-      csp: {
-        policies: [
-          {
-            prod: {
-              pattern: "foo",
-              directives: {
-                "default-src": ["'self'", "https://foo.com"],
-                "img-src": ["https://bar.com"],
-              },
+      policies: [
+        {
+          prod: {
+            pattern: "foo",
+            directives: {
+              "default-src": ["'self'", "https://foo.com"],
+              "img-src": ["https://bar.com"],
             },
           },
-        ],
-      },
+        },
+      ],
     };
     const data = { path: "foo/index.html" };
 
@@ -43,26 +41,24 @@ describe("given valid args", () => {
 
   it("should apply only the corresponding polices for that path (foo/index.html", async () => {
     const c = {
-      csp: {
-        policies: [
-          {
-            pattern: "^bar$",
-            prod: {
-              directives: {
-                "default-src": ["https://config-default-default.com"],
-              },
+      policies: [
+        {
+          pattern: "^bar$",
+          prod: {
+            directives: {
+              "default-src": ["https://config-default-default.com"],
             },
           },
-          {
-            pattern: "^foo",
-            prod: {
-              directives: {
-                "default-src": ["https://config-foo-default.com"],
-              },
+        },
+        {
+          pattern: "^foo",
+          prod: {
+            directives: {
+              "default-src": ["https://config-foo-default.com"],
             },
           },
-        ],
-      },
+        },
+      ],
     };
     const data = {
       path: "foo/index.html",
@@ -88,19 +84,17 @@ describe("given frontmatter", () => {
   describe("mode=[default] (merge)", () => {
     it("should merge the frontmatter and return the markup", async () => {
       const c = {
-        csp: {
-          policies: [
-            {
-              pattern: "foo",
-              prod: {
-                directives: {
-                  "default-src": ["https://config-foo-default.com"],
-                  "img-src": ["https://config-foo-img.com"],
-                },
+        policies: [
+          {
+            pattern: "foo",
+            prod: {
+              directives: {
+                "default-src": ["https://config-foo-default.com"],
+                "img-src": ["https://config-foo-img.com"],
               },
             },
-          ],
-        },
+          },
+        ],
       };
       const data = {
         path: "foo/index.html",
@@ -126,19 +120,17 @@ describe("given frontmatter", () => {
   describe("mode=merge", () => {
     it("should merge the frontmatter and return the markup", async () => {
       const c = {
-        csp: {
-          policies: [
-            {
-              pattern: "foo",
-              prod: {
-                directives: {
-                  "default-src": ["https://config-foo-default.com"],
-                  "img-src": ["https://config-foo-img.com"],
-                },
+        policies: [
+          {
+            pattern: "foo",
+            prod: {
+              directives: {
+                "default-src": ["https://config-foo-default.com"],
+                "img-src": ["https://config-foo-img.com"],
               },
             },
-          ],
-        },
+          },
+        ],
       };
       const data = {
         path: "foo/index.html",
@@ -165,23 +157,21 @@ describe("given frontmatter", () => {
   describe("mode=replace", () => {
     it("should replace the config with the frontmatter and return the markup", async () => {
       const c = {
-        csp: {
-          policies: [
-            {
-              // applyCSP encloses the path (minus index) with ^$:
-              // foo/index.html => ^foo$, and uses that value to do a literal
-              // comparison. If that comparison doesn't match, then no policies
-              // will get replaced. So use ^foo$ so that the patterns are identical.
-              pattern: "^foo$",
-              prod: {
-                directives: {
-                  "default-src": ["https://config-foo-default.com"],
-                  "img-src": ["https://config-foo-img.com"],
-                },
+        policies: [
+          {
+            // applyCSP encloses the path (minus index) with ^$:
+            // foo/index.html => ^foo$, and uses that value to do a literal
+            // comparison. If that comparison doesn't match, then no policies
+            // will get replaced. So use ^foo$ so that the patterns are identical.
+            pattern: "^foo$",
+            prod: {
+              directives: {
+                "default-src": ["https://config-foo-default.com"],
+                "img-src": ["https://config-foo-img.com"],
               },
             },
-          ],
-        },
+          },
+        ],
       };
       const data = {
         path: "foo/index.html",
@@ -211,10 +201,9 @@ describe("given no directives to apply", () => {
     null,
     {},
     { page: {} },
-    { page: { csp: {} } },
-    { page: { csp: { policies: [] } } },
-    { page: { csp: { policies: [{ prod: {} }] } } },
-    { page: { csp: { policies: [{ prod: { directves: {} } }] } } },
+    { page: { policies: [] } },
+    { page: { policies: [{ prod: {} }] } },
+    { page: { policies: [{ prod: { directves: {} } }] } },
   ].forEach((c) => {
     const param = c === undefined ? undefined : JSON.stringify(c);
     describe(`i.e. the config object is ${param}`, () => {
@@ -231,24 +220,22 @@ describe("for inline tags", () => {
   describe("given inline scripts, styles and additional policies", () => {
     it("should merge content hashes, and apply policies", async () => {
       const c = {
-        csp: {
-          inline: {
-            enabled: true,
-            algo: "sha256",
-          },
-          policies: [
-            {
-              pattern: "foo",
-              prod: {
-                directives: {
-                  "style-src": ["https://policy-foo-style.com"],
-                  "script-src": ["https://policy-foo-script.com"],
-                  "default-src": ["https://policy-foo-default.com"],
-                },
+        inline: {
+          enabled: true,
+          algo: "sha256",
+        },
+        policies: [
+          {
+            pattern: "foo",
+            prod: {
+              directives: {
+                "style-src": ["https://policy-foo-style.com"],
+                "script-src": ["https://policy-foo-script.com"],
+                "default-src": ["https://policy-foo-default.com"],
               },
             },
-          ],
-        },
+          },
+        ],
       };
       const data = { path: "foo/index.html" };
 
@@ -311,11 +298,9 @@ describe("for inline tags", () => {
     describe(`and given ${algo}`, () => {
       it(`it should inject a ${algo}+base64 source for each`, async () => {
         const c = {
-          csp: {
-            inline: {
-              enabled: true,
-              algo,
-            },
+          inline: {
+            enabled: true,
+            algo,
           },
         };
         const data = { path: "foo/index.html" };
@@ -330,24 +315,22 @@ describe("for inline tags", () => {
   describe("when disabled", () => {
     it("should not generate hashes (but still apply other policies)", async () => {
       const c = {
-        csp: {
-          inline: {
-            enabled: false,
-            algo: "sha256",
-          },
-          policies: [
-            {
-              pattern: "foo",
-              prod: {
-                directives: {
-                  "style-src": ["https://policy-foo-style.com"],
-                  "script-src": ["https://policy-foo-script.com"],
-                  "default-src": ["https://policy-foo-default.com"],
-                },
+        inline: {
+          enabled: false,
+          algo: "sha256",
+        },
+        policies: [
+          {
+            pattern: "foo",
+            prod: {
+              directives: {
+                "style-src": ["https://policy-foo-style.com"],
+                "script-src": ["https://policy-foo-script.com"],
+                "default-src": ["https://policy-foo-default.com"],
               },
             },
-          ],
-        },
+          },
+        ],
       };
       const data = { path: "foo/index.html" };
 

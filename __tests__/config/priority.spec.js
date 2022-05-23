@@ -6,12 +6,12 @@ const DEFAULT = 999;
 
 describe("for Config.priority", () => {
   it("should return the provided value", async () => {
-    const config = new Config({ csp: { priority: 20 } });
+    const config = new Config({ priority: 20 });
     expect(config.priority).toBe(20);
   });
 
   it("should return a default value", async () => {
-    const config = new Config({ csp: {} });
+    const config = new Config({});
     expect(config.priority).toBe(DEFAULT);
   });
 

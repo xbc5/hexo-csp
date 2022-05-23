@@ -4,7 +4,7 @@ const Config = require("../../lib/config");
 
 describe("for Config.enabled", () => {
   it("should be enabled if enabled:true provided", async () => {
-    const config = new Config({ csp: { enabled: true } });
+    const config = new Config({ enabled: true });
     expect(config.enabled).toBe(true);
   });
 
@@ -19,12 +19,12 @@ describe("for Config.enabled", () => {
   });
 
   it("should be disabled if no enabled:boolean provided", async () => {
-    const config = new Config({ csp: {} });
+    const config = new Config({});
     expect(config.enabled).toBe(false);
   });
 
   it("should be disabled if no enabled:false provided", async () => {
-    const config = new Config({ csp: {} });
+    const config = new Config({});
     expect(config.enabled).toBe(false);
   });
 });

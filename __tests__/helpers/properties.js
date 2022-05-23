@@ -22,6 +22,7 @@ const notAnObject = () =>
   fc.anything().filter((v) => v?.constructor?.name !== "Object");
 
 const notAString = () => fc.anything().filter((v) => typeof v !== "string");
+const notA = (type) => fc.anything().filter((v) => typeof v !== type);
 
 const garbageObject = () => {
   return fc.object({
@@ -38,4 +39,5 @@ module.exports = {
   notAnObject,
   notAString,
   garbageObject,
+  notA,
 };

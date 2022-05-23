@@ -1,88 +1,58 @@
 const { config } = require("../../lib/validation");
+const { validConfig: valid } = require("./helpers");
 
 const validate = (val) => config.validate(val);
-
-const valid = () => ({
-  enabled: true,
-  inline: {
-    enabled: true,
-    algo: "sha512",
-  },
-  priority: 100,
-  env: "prod",
-  policies: [
-    {
-      pattern: "^foo$",
-      prod: {
-        mode: "replace",
-        directives: {
-          "default-src": ["https://foo.com", "https://bar.com"],
-          "img-src": ["https://foo.com", "https://bar.com"],
-        },
-      },
-      dev: {
-        directives: {
-          "default-src": ["https://bar.com"],
-        },
-      },
-    },
-    {
-      pattern: "^bar$",
-      prod: {
-        mode: "merge",
-        directives: {
-          "img-src": ["https://foo.com"],
-        },
-      },
-      dev: {
-        mode: "merge",
-        directives: {
-          "img-src": ["https://foo.com"],
-        },
-      },
-    },
-  ],
-});
 
 it("should accept a valid config", () => {
   const err = validate(valid()).error;
   expect(err).not.toBeDefined();
 });
 
-it("should return an error object for invalid 'enabled' prop", () => {
+const set = (path, value = null) => {
   const conf = valid();
-  conf.enabled = null;
-  expect(validate(conf).error).toBeDefined();
+
+  const split = path.split(".");
+  const end = split[split.length - 1];
+  const rest = split.slice(0, split.length - 1);
+
+  const almost = rest.reduce((p, c) => (p && p[c]) || null, conf);
+  if (almost === null) throw Error(`Invalid path for config object: ${path}`);
+
+  value === "delete" ? delete almost[end] : (almost[end] = value);
+  return conf;
+};
+
+[
+  "enabled",
+  "env",
+  "inline",
+  "inline.algo",
+  "inline.enabled",
+  "priority",
+  "policies",
+  "logger",
+  "logger.dev",
+  "logger.dev.enabled",
+  "logger.dev.uri",
+  "logger.prod",
+  "logger.prod.enabled",
+  "logger.prod.uri",
+].forEach((path) => {
+  describe("keys that should error when set with an invalid value", () => {
+    it(`should error when ${path}=null`, () => {
+      const conf = set(path);
+      expect(validate(conf).error).toBeDefined();
+    });
+  });
 });
 
-it("should return an error object for invalid 'env' prop", () => {
-  const conf = valid();
-  conf.enabled = null;
-  expect(validate(conf).error).toBeDefined();
-});
-
-it("should return an error object for invalid 'inline' prop", () => {
-  const conf = valid();
-  conf.inline = null;
-  expect(validate(conf).error).toBeDefined();
-});
-
-it("should return an error object for invalid 'inline.algo' prop", () => {
-  const conf = valid();
-  conf.inline.algo = null;
-  expect(validate(conf).error).toBeDefined();
-});
-
-it("should return an error object for invalid 'inline.enabled' prop", () => {
-  const conf = valid();
-  conf.inline.enabled = null;
-  expect(validate(conf).error).toBeDefined();
-});
-
-it("should return an error object for invalid 'priority' prop", () => {
-  const conf = valid();
-  conf.priority = null;
-  expect(validate(conf).error).toBeDefined();
+["logger.prod.uri"].forEach((path) => {
+  describe("keys that should error when they don't exist", () => {
+    test(path, () => {
+      const conf = set(path, "delete");
+      expect(validate(conf).error).toBeDefined();
+    });
+  });
 });
 
 ["prod", "dev"].forEach((env) => {
@@ -97,12 +67,6 @@ it("should return an error object for invalid 'priority' prop", () => {
       const conf = valid();
       conf.policies.map((p) => delete p[env]);
       expect(validate(conf).error).not.toBeDefined();
-    });
-
-    it("should return an error object for invalid 'policies' prop", () => {
-      const conf = valid();
-      conf.policies = null;
-      expect(validate(conf).error).toBeDefined();
     });
 
     it("should accept the policies prop as optional", () => {

@@ -1,5 +1,5 @@
 "use strict";
-const { fixture, render } = require("./helpers/mock");
+const { fixture } = require("./helpers/mock");
 
 describe("given an invalid config", () => {
   it("should not render a CSP", async () => {

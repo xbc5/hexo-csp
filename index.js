@@ -5,6 +5,9 @@ const Config = require("./lib/config-factory");
 const { registerCli } = require("./lib/cli");
 const util = require("util");
 const Policies = require("./lib/Policies");
+const Middleware = require("./lib/Middleware");
+const { config: schema } = require("./lib/validation");
+const clone = require("lodash.clonedeep");
 
 registerCli(hexo);
 
@@ -25,26 +28,34 @@ function error(error, hexo, path) {
   return error !== undefined;
 }
 
-function handleRender(hexo) {
-  // TODO: only inject config.csp
-  const config = Config(hexo.config);
+const validated = schema.validate(clone(hexo.config.csp));
 
-  if (config.enabled) {
-    if (error(config.validate(), hexo)) return;
+if (!error(validated.error, hexo)) {
+  const config = Config(validated.value);
 
-    const policies = new Policies({ env: config.env });
-    if (config.policies) config.policies.forEach((p) => policies.savePolicy(p));
-
-    hexo.extend.filter.register(
-      "after_render:html",
-      function run(str, data) {
-        return applyCSP(config, policies, data, str, (e) => {
-          return error(e, hexo, data.path);
-        });
-      },
-      config.priority
-    );
+  if (config.loggerEnabled("dev")) {
+    // The Hexo server IS a development server. No need to check env. Env is
+    // for determining what to build, not what to run.
+    new Middleware(hexo, config).acceptJSON().logCSP();
   }
-}
 
-handleRender(hexo);
+  function handleRender(hexo) {
+    if (config.enabled) {
+      const policies = new Policies({ env: config.env });
+      if (config.policies)
+        config.policies.forEach((p) => policies.savePolicy(p));
+
+      hexo.extend.filter.register(
+        "after_render:html",
+        function run(str, data) {
+          return applyCSP(config, policies, data, str, (e) => {
+            return error(e, hexo, data.path);
+          });
+        },
+        config.priority
+      );
+    }
+  }
+
+  handleRender(hexo);
+}

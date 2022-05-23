@@ -34,10 +34,7 @@ const policies = () => [
   },
 ];
 
-const factory = (p = policies()) =>
-  new Config({
-    csp: { policies: p },
-  });
+const factory = (p = policies()) => new Config({ policies: p });
 
 it("should return the specified policies as-is", async () => {
   const result = factory().policies;
