@@ -1,11 +1,11 @@
-const { loggerUri } = require("../../lib/validation");
+const { host } = require("../../lib/validation");
 const fc = require("fast-check");
 const { assert, truthyString, notAString } = require("../helpers/properties");
 const Joi = require("joi");
 
-const schema = Joi.object({ uri: loggerUri() });
+const schema = Joi.object({ host: host() });
 
-const validate = (val) => schema.validate({ uri: val });
+const validate = (val) => schema.validate({ host: val });
 
 it("should accept strings", () => {
   assert(truthyString(), (val) => {
@@ -18,8 +18,6 @@ it("should reject falsy strings", () => {
 });
 
 it("should not be required", () => {
-  // because URI is required for prod logger, but not dev, this is enfoced
-  // during inteeration (validate/config), so test it there instead.
   expect(validate(undefined).error).not.toBeDefined();
 });
 

@@ -33,10 +33,14 @@ const set = (path, value = null) => {
   "logger",
   "logger.dev",
   "logger.dev.enabled",
-  "logger.dev.uri",
+  "logger.dev.host",
+  "logger.dev.port",
+  "logger.dev.path",
   "logger.prod",
   "logger.prod.enabled",
-  "logger.prod.uri",
+  "logger.prod.host",
+  "logger.prod.port",
+  "logger.prod.path",
 ].forEach((path) => {
   describe("keys that should error when set with an invalid value", () => {
     it(`should error when ${path}=null`, () => {
@@ -46,7 +50,7 @@ const set = (path, value = null) => {
   });
 });
 
-["logger.prod.uri"].forEach((path) => {
+["logger.prod.path", "logger.prod.host"].forEach((path) => {
   describe("keys that should error when they don't exist", () => {
     test(path, () => {
       const conf = set(path, "delete");

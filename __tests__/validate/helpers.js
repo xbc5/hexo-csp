@@ -7,11 +7,14 @@ const validConfig = () => ({
   logger: {
     prod: {
       enabled: false,
-      uri: "https://prod-logger.com",
+      host: "https://prod-logger.com",
+      path: "/custom-prod-csp-logger",
     },
     dev: {
       enabled: true,
-      uri: "https://dev-logger.com",
+      host: "https://dev-logger.com",
+      port: "4001",
+      path: "/custom-dev-csp-logger",
     },
   },
   priority: 100,

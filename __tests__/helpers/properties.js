@@ -23,6 +23,7 @@ const notAnObject = () =>
 
 const notAString = () => fc.anything().filter((v) => typeof v !== "string");
 const notA = (type) => fc.anything().filter((v) => typeof v !== type);
+const notIntegers = () => fc.anything().filter((v) => !Number.isInteger(v));
 
 const garbageObject = () => {
   return fc.object({
@@ -40,4 +41,5 @@ module.exports = {
   notAString,
   garbageObject,
   notA,
+  notIntegers,
 };

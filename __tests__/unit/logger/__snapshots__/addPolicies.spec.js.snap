@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`for the dev environment should add the dev policy 1`] = `
+Array [
+  Object {
+    "directives": Object {
+      "report-uri": Array [
+        "localhost:4000/csp-logger",
+      ],
+    },
+    "pattern": ".+",
+  },
+]
+`;
+
+exports[`for the prod environment should add the prod policy 1`] = `
+Array [
+  Object {
+    "directives": Object {
+      "report-uri": Array [
+        "https://production.com/csp-logger",
+      ],
+    },
+    "pattern": ".+",
+  },
+]
+`;

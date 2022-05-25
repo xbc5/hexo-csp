@@ -24,29 +24,28 @@ describe("logger", () => {
       expect(result).toMatchObject(expected);
     });
 
-    it(`should default "enabled" value for ${env} logger`, async () => {
-      const conf = valid();
-      delete conf.logger[env].enabled;
+    ["enabled", "host", "port", "path"].forEach((key) => {
+      describe(`for the "${env}" logger`, () => {
+        const defaultValue = $DF.logger[env][key];
+        const not = defaultValue === undefined ? " not" : "";
+        it(`should${not} default the "${key}" value`, async () => {
+          // if the default value doesn't exist (undefined) then we shall delete it
+          // from expected. Essentially this also tests that a default is NOT set where
+          // appropriate.
+          const defaulted = defaultValue !== undefined;
 
-      const expected = {
-        logger: { [env]: { enabled: $DF.logger[env].enabled } },
-      };
+          const conf = valid();
+          delete conf.logger[env][key];
 
-      const result = validate(conf).value;
-      expect(result).toMatchObject(expected);
-    });
+          const result = validate(conf).value;
 
-    it(`should default "uri" value for ${env} logger`, async () => {
-      const conf = valid();
-      delete conf.logger[env].uri;
-
-      const uri = $DF.logger[env].uri;
-
-      // in cases where it's not required we expect no key, not { key: undefined }
-      const expected = uri === undefined ? {} : { logger: { [env]: { uri } } };
-
-      const result = validate(conf).value;
-      expect(result).toMatchObject(expected);
+          defaulted
+            ? expect(result).toMatchObject({
+                logger: { [env]: { [key]: defaultValue } },
+              })
+            : expect(Object.keys(result.logger[env])).not.toContain(key);
+        });
+      });
     });
   });
 });

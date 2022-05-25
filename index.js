@@ -8,6 +8,7 @@ const Policies = require("./lib/Policies");
 const Middleware = require("./lib/Middleware");
 const { config: schema } = require("./lib/validation");
 const clone = require("lodash.clonedeep");
+const logger = require("./lib/logger.js");
 
 registerCli(hexo);
 
@@ -39,23 +40,19 @@ if (!error(validated.error, hexo)) {
     new Middleware(hexo, config).acceptJSON().logCSP();
   }
 
-  function handleRender(hexo) {
-    if (config.enabled) {
-      const policies = new Policies({ env: config.env });
-      if (config.policies)
-        config.policies.forEach((p) => policies.savePolicy(p));
+  if (config.enabled) {
+    const policies = new Policies({ env: config.env });
+    if (config.policies) config.policies.forEach((p) => policies.savePolicy(p));
+    if (config.loggerEnabled(config.env)) logger.addPolicies(policies, config);
 
-      hexo.extend.filter.register(
-        "after_render:html",
-        function run(str, data) {
-          return applyCSP(config, policies, data, str, (e) => {
-            return error(e, hexo, data.path);
-          });
-        },
-        config.priority
-      );
-    }
+    hexo.extend.filter.register(
+      "after_render:html",
+      function run(str, data) {
+        return applyCSP(config, policies, data, str, (e) => {
+          return error(e, hexo, data.path);
+        });
+      },
+      config.priority
+    );
   }
-
-  handleRender(hexo);
 }

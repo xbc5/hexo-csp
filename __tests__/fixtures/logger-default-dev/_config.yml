@@ -1,0 +1,21 @@
+theme: fake
+meta_generator: false
+
+permalink: :title
+pretty_urls:
+  trailing_index: false # no trailing 'index.html'
+  trailing_html: false # no trailing '.html'
+
+csp:
+  enabled: true
+  env: dev
+  policies:
+    - pattern: ^markdown-2$
+      prod:
+        directives:
+          img-src:
+            - https://prod-config-markdown-2-img.com
+      dev:
+        directives:
+          default-src:
+            - https://dev-config-markdown-2-default-1.com

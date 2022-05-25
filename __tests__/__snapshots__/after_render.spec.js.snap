@@ -1,5 +1,43 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`dev logger enabled; prod logger disabled (by default) for markdown-1 should include dev logger for all pages 1`] = `
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Security-Policy"
+          content="report-uri https://dev-logger.com:5000/my-custom-dev-logger; default-src https://prod-frontmatter-markdown-1-default-1.com"
+    >
+    <title>
+      Markdown 1
+    </title>
+  </head>
+  <body>
+    <h1>
+      Markdown 1
+    </h1>
+  </body>
+</html>
+`;
+
+exports[`dev logger enabled; prod logger disabled (by default) for markdown-2 should include dev logger for all pages 1`] = `
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Security-Policy"
+          content="img-src https://prod-config-markdown-2-img.com; default-src https://dev-config-markdown-2-default-1.com https://prod-frontmatter-markdown-2-default-2.com; report-uri https://dev-logger.com:5000/my-custom-dev-logger"
+    >
+    <title>
+      Markdown 2
+    </title>
+  </head>
+  <body>
+    <h1>
+      Markdown 1
+    </h1>
+  </body>
+</html>
+`;
+
 exports[`given invalid frontmatter for / should not render a CSP 1`] = `
 <!DOCTYPE html>
 <html lang="en">
@@ -312,6 +350,120 @@ exports[`given the path "index.html" should only match against the "/" policy pa
   <body>
     <h1>
       Home
+    </h1>
+  </body>
+</html>
+`;
+
+exports[`logger config is not specified and env=dev for markdown-1 should include dev logger for all pages 1`] = `
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Security-Policy"
+          content="report-uri localhost:4000/csp-logger; default-src https://prod-frontmatter-markdown-1-default-1.com"
+    >
+    <title>
+      Markdown 1
+    </title>
+  </head>
+  <body>
+    <h1>
+      Markdown 1
+    </h1>
+  </body>
+</html>
+`;
+
+exports[`logger config is not specified and env=dev for markdown-2 should include dev logger for all pages 1`] = `
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Security-Policy"
+          content="img-src https://prod-config-markdown-2-img.com; default-src https://dev-config-markdown-2-default-1.com https://prod-frontmatter-markdown-2-default-2.com; report-uri localhost:4000/csp-logger"
+    >
+    <title>
+      Markdown 2
+    </title>
+  </head>
+  <body>
+    <h1>
+      Markdown 1
+    </h1>
+  </body>
+</html>
+`;
+
+exports[`logger config is not specified and env=prod for markdown-1 should not include any loggers 1`] = `
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Security-Policy"
+          content="default-src https://prod-frontmatter-markdown-1-default-1.com"
+    >
+    <title>
+      Markdown 1
+    </title>
+  </head>
+  <body>
+    <h1>
+      Markdown 1
+    </h1>
+  </body>
+</html>
+`;
+
+exports[`logger config is not specified and env=prod for markdown-2 should not include any loggers 1`] = `
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Security-Policy"
+          content="img-src https://prod-config-markdown-2-img.com; default-src https://prod-frontmatter-markdown-2-default-2.com"
+    >
+    <title>
+      Markdown 2
+    </title>
+  </head>
+  <body>
+    <h1>
+      Markdown 1
+    </h1>
+  </body>
+</html>
+`;
+
+exports[`prod logger enabled; dev logger disabled for markdown-1 should include prod logger for all pages 1`] = `
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Security-Policy"
+          content="report-uri https://prod-logger.com:443/my-custom-prod-logger; default-src https://prod-frontmatter-markdown-1-default-1.com"
+    >
+    <title>
+      Markdown 1
+    </title>
+  </head>
+  <body>
+    <h1>
+      Markdown 1
+    </h1>
+  </body>
+</html>
+`;
+
+exports[`prod logger enabled; dev logger disabled for markdown-2 should include prod logger for all pages 1`] = `
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Security-Policy"
+          content="img-src https://prod-config-markdown-2-img.com; default-src https://prod-frontmatter-markdown-2-default-2.com; report-uri https://prod-logger.com:443/my-custom-prod-logger"
+    >
+    <title>
+      Markdown 2
+    </title>
+  </head>
+  <body>
+    <h1>
+      Markdown 1
     </h1>
   </body>
 </html>

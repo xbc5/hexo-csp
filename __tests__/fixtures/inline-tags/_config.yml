@@ -12,6 +12,9 @@ csp:
   inline:
     enabled: true
     algo: sha512
+  logger:
+    dev:
+      enabled: false
   policies:
     - pattern: ^/$
       prod:

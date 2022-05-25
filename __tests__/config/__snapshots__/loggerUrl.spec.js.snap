@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`when given "dev" as an arg should return "dev" logger path 1`] = `"https://dev-logger.com:4000/custom-dev-logger"`;
+
+exports[`when given "prod" as an arg should return "prod" logger path 1`] = `"https://prod-logger.com/custom-prod-logger"`;

@@ -9,6 +9,9 @@ pretty_urls:
 csp:
   enabled: true
   env: dev
+  logger:
+    dev:
+      enabled: false
   policies:
     - pattern: ^nomatch$
       prod:

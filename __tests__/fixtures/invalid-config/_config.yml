@@ -9,3 +9,6 @@ pretty_urls:
 csp:
   enabled: true
   env: invalid
+  logger:
+    dev:
+      enabled: false

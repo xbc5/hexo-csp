@@ -23,10 +23,18 @@ NOTES:
 ```yaml
 csp:
   enabled: true
+  priority: 100
   inline:
     enabled: true
     algo: sha256
-  priority: 100
+  logger:
+    prod:
+      enabled: false
+    dev:
+      enabled: true
+      host: localhost
+      port: 4000
+      path: /csp-logger
   policies:
     - pattern: ^bar$
       prod:

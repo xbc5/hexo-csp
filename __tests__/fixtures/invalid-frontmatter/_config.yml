@@ -8,3 +8,6 @@ pretty_urls:
 
 csp:
   enabled: true
+  logger:
+    dev:
+      enabled: false
