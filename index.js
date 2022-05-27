@@ -8,7 +8,9 @@ const Policies = require("./lib/Policies");
 const Middleware = require("./lib/Middleware");
 const { config: schema } = require("./lib/validation");
 const clone = require("lodash.clonedeep");
-const logger = require("./lib/logger.js");
+const Cache = require("./lib/DirectivesCache-factory");
+const { stripIndex } = require("./lib/util");
+const Directives = require("./lib/Directives");
 
 registerCli(hexo);
 
@@ -34,25 +36,55 @@ const validated = schema.validate(clone(hexo.config.csp));
 if (!error(validated.error, hexo)) {
   const config = Config(validated.value);
 
-  if (config.loggerEnabled("dev")) {
-    // The Hexo server IS a development server. No need to check env. Env is
-    // for determining what to build, not what to run.
-    new Middleware(hexo, config).acceptJSON().logCSP();
-  }
-
+  // TODO: test me: cache, cmd, middleware applied, CSP logging
   if (config.enabled) {
-    const policies = new Policies({ env: config.env });
-    if (config.policies) config.policies.forEach((p) => policies.savePolicy(p));
-    if (config.loggerEnabled(config.env)) logger.addPolicies(policies, config);
+    const cache = Cache();
 
-    hexo.extend.filter.register(
-      "after_render:html",
-      function run(str, data) {
-        return applyCSP(config, policies, data, str, (e) => {
-          return error(e, hexo, data.path);
+    if (hexo.env.cmd === "generate") {
+      const policies = new Policies({ env: config.env });
+      if (config.policies)
+        config.policies.forEach((p) => policies.savePolicy(p));
+
+      hexo.extend.filter.register(
+        "after_render:html",
+        function (str, data) {
+          const path = stripIndex(data.page?.slug || data.path);
+
+          const markup = applyCSP(config, policies, data, str, path, (e) => {
+            return error(e, hexo, data.path);
+          });
+
+          const toCache = {
+            base: data?.page?.base,
+            path: data?.path,
+            canonical_path: data?.page?.canonical_path,
+            slug: data?.page?.slug,
+            permalink: data?.page?.permalink,
+            full_source: data?.page?.full_source,
+            directives: policies.directives(path),
+          };
+          cache.add(data?.path, toCache);
+
+          return markup;
+        },
+        config.priority
+      );
+
+      // Hexo before_exit is racy, use this instead
+      const onExit = () => cache.write();
+      process.on("exit", onExit);
+      process.on("SIGINT", onExit);
+    } else if (hexo.env.cmd === "server") {
+      if (config.loggerEnabled("dev")) {
+        const cached = cache.read();
+        const middleware = new Middleware(hexo, config);
+        Object.values(cached).forEach((c) => {
+          const path = stripIndex(c.path); // WARN: stripIndex() might not play nice with _config
+          const directives = Directives.toString(c.directives);
+          middleware.setReportUri(path, directives);
         });
-      },
-      config.priority
-    );
+        middleware.acceptReportMIME().logCSP();
+      }
+    }
   }
 }

@@ -21,8 +21,13 @@ function getSandbox() {
 
 const sandbox = getSandbox();
 
-async function fixture(fixtureName) {
+async function fixture(fixtureName, opts = {}) {
+  const defaults = { ...{ cmd: "generate" }, ...opts };
   const ctx = await sandbox({ fixtureName });
+  // test utils does not set the CMD. We use this to distinguish between running
+  // server middleware and build-time code. Since these test utils focus on generation,
+  // set this as default.
+  ctx.env.cmd = defaults.cmd;
   await _process(ctx);
   return async (name) => (await contentFor(ctx, name)).toString().trim();
 }

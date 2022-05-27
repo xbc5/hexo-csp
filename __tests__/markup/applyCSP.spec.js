@@ -5,13 +5,13 @@ const Policies = require("../../lib/Policies");
 const { applyCSP } = require("../../lib/markup");
 const template = require("../helpers/template");
 
-function run(conf, data, str, err) {
+function fixture(conf, data, str, path, err) {
   const c = new Config(conf);
   const policies = new Policies();
   // policies are combined when the app is initialised, so combine them
   // with savePolicy to emulate this.
   conf?.policies?.forEach((p) => policies.savePolicy(p));
-  return applyCSP(c, policies, data, str, err);
+  return applyCSP(c, policies, data, str, path, err);
 }
 
 // TODO:
@@ -34,7 +34,7 @@ describe("given valid args", () => {
     };
     const data = { path: "foo/index.html" };
 
-    const markup = run(c, data, template.noMeta);
+    const markup = fixture(c, data, template.noMeta, data.path);
 
     expect(markup).toMatchSnapshot();
   });
@@ -74,7 +74,7 @@ describe("given valid args", () => {
       },
     };
 
-    const markup = run(c, data, template.noMeta);
+    const markup = fixture(c, data, template.noMeta, data.path);
 
     expect(markup).toMatchSnapshot();
   });
@@ -111,7 +111,7 @@ describe("given frontmatter", () => {
         },
       };
 
-      const markup = run(c, data, template.noMeta);
+      const markup = fixture(c, data, template.noMeta, data.path);
 
       expect(markup).toMatchSnapshot();
     });
@@ -148,7 +148,7 @@ describe("given frontmatter", () => {
         },
       };
 
-      const markup = run(c, data, template.noMeta);
+      const markup = fixture(c, data, template.noMeta, data.path);
 
       expect(markup).toMatchSnapshot();
     });
@@ -188,7 +188,7 @@ describe("given frontmatter", () => {
         },
       };
 
-      const markup = run(c, data, template.noMeta);
+      const markup = fixture(c, data, template.noMeta, data.path);
 
       expect(markup).toMatchSnapshot();
     });
@@ -209,7 +209,7 @@ describe("given no directives to apply", () => {
     describe(`i.e. the config object is ${param}`, () => {
       it("it should return the original markup", async () => {
         const data = { path: "foo/index.html" };
-        const markup = run(c, data, template.noMeta);
+        const markup = fixture(c, data, template.noMeta, data.path);
         expect(markup).toBe(template.noMeta);
       });
     });
@@ -239,7 +239,7 @@ describe("for inline tags", () => {
       };
       const data = { path: "foo/index.html" };
 
-      const markup = run(c, data, template.mixedStyleScripts);
+      const markup = fixture(c, data, template.mixedStyleScripts, data.path);
 
       expect(markup).toMatchSnapshot();
     });
@@ -305,7 +305,12 @@ describe("for inline tags", () => {
         };
         const data = { path: "foo/index.html" };
 
-        const markup = run(c, data, template.mixedStyleScriptsForHashing);
+        const markup = fixture(
+          c,
+          data,
+          template.mixedStyleScriptsForHashing,
+          data.path
+        );
 
         expect(markup).toMatchSnapshot();
       });
@@ -334,7 +339,7 @@ describe("for inline tags", () => {
       };
       const data = { path: "foo/index.html" };
 
-      const markup = run(c, data, template.mixedStyleScripts);
+      const markup = fixture(c, data, template.mixedStyleScripts, data.path);
 
       expect(markup).toMatchSnapshot();
     });

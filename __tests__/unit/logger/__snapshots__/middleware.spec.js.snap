@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`log() should be called with the request body 1`] = `
+Array [
+  "This is the header text
+{ foo: [32m'bar'[39m }",
+]
+`;

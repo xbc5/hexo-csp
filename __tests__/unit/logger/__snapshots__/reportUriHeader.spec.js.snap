@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`when finished should not call next with any args (i.e. no error) 1`] = `Array []`;
+
+exports[`when setting the Content-Security-Policy header should set it with expected values 1`] = `
+Array [
+  "Content-Security-Policy",
+  "default-src https://directive1.com; img-src https://directive2.com; report-uri https://my-logger.com; report-to {\\"group\\":\\"csp-endpoint\\",\\"max_age\\":10886400,\\"endpoints\\":[{\\"url\\":\\"https://my-logger.com\\"}]};",
+]
+`;

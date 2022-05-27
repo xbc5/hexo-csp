@@ -1,0 +1,69 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`after adding data should keep read data in sync with the written data 1`] = `
+Object {
+  "key1": Object {
+    "base": "base1",
+    "canonical_path": "canonical_path1",
+    "directives": Object {
+      "directive1": Array [
+        "source1a",
+        "source1b",
+      ],
+    },
+    "full_source": "full_source1",
+    "path": "path1",
+    "permalink": "permalink1",
+    "slug": "slug1",
+  },
+  "key2": Object {
+    "base": "base2",
+    "canonical_path": "canonical_path2",
+    "directives": Object {
+      "directive2": Array [
+        "source2a",
+        "source2b",
+      ],
+    },
+    "full_source": "full_source2",
+    "path": "path2",
+    "permalink": "permalink2",
+    "slug": "slug2",
+  },
+}
+`;
+
+exports[`after adding data should write it to file when instructed 1`] = `
+Array [
+  "{
+  \\"key1\\": {
+    \\"base\\": \\"base1\\",
+    \\"path\\": \\"path1\\",
+    \\"canonical_path\\": \\"canonical_path1\\",
+    \\"slug\\": \\"slug1\\",
+    \\"permalink\\": \\"permalink1\\",
+    \\"full_source\\": \\"full_source1\\",
+    \\"directives\\": {
+      \\"directive1\\": [
+        \\"source1a\\",
+        \\"source1b\\"
+      ]
+    }
+  },
+  \\"key2\\": {
+    \\"base\\": \\"base2\\",
+    \\"path\\": \\"path2\\",
+    \\"canonical_path\\": \\"canonical_path2\\",
+    \\"slug\\": \\"slug2\\",
+    \\"permalink\\": \\"permalink2\\",
+    \\"full_source\\": \\"full_source2\\",
+    \\"directives\\": {
+      \\"directive2\\": [
+        \\"source2a\\",
+        \\"source2b\\"
+      ]
+    }
+  }
+}",
+]
+`;
