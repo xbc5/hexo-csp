@@ -31,7 +31,10 @@ it("should reject numbers > 65535", () => {
 
 it("should reject non-integers", () => {
   assert(notIntegers(), (val) => {
-    fc.pre(val !== undefined); // can be undefined
+    const defined = val !== undefined;
+    const notStringInt = typeof val === "string" ? !/\d+/.test(val) : true;
+    fc.pre(defined && notStringInt);
+
     expect(validate(val).error).toBeDefined();
   });
 });
