@@ -5,7 +5,7 @@ exports[`for inline tags and given sha256 it should inject a sha256+base64 sourc
 <html lang="en">
   <head>
     <meta http-equiv="Content-Security-Policy"
-          content="script-src 'sha256-YjZlMjI0ZjE0MzBjZTU1MmJhMGU3ZjA5OWY3NzhmNGE4OTY4ZGQ4YjMzM2UyZjg5Nzg5YWRkY2ViM2FjODZjYw==' 'sha256-YWE3MTY0NGRjYmE4MDI5ZWE4M2I1NDU5MjcyZTlhMzdmZjY4ZGUyNmE3YjAwMzA5NGIxZDE5MmVhNmU0ZmM5Ng=='; style-src 'sha256-OWNjNzc1MTdmMmNjMmIzNmM0OWJjOTk2NmRjNGNkMGJhMjFmNmFiZDZjYmFkMDBjMjQ5ZDZlYWExYmM5ZmRjZg==' 'sha256-ODQ0MDEzNWZiYjE0NjY4OTU3ZjQ3NDE4NjkwZmFjNDkxNmU0OWYzNTkxOWQ2ZjMyZWQ5M2RkMTY1NmRhNjFkZA=='"
+          content="script-src 'sha256-tuIk8UMM5VK6Dn8Jn3ePSolo3YszPi+JeJrdzrOshsw=' 'sha256-qnFkTcuoAp6oO1RZJy6aN/9o3iansAMJSx0ZLqbk/JY='; style-src 'sha256-nMd1F/LMKzbEm8mWbcTNC6Ifar1sutAMJJ1uqhvJ/c8=' 'sha256-hEATX7sUZolX9HQYaQ+sSRbknzWRnW8y7ZPdFlbaYd0='"
     >
     <title>
       Fake Title
@@ -37,7 +37,7 @@ exports[`for inline tags and given sha384 it should inject a sha384+base64 sourc
 <html lang="en">
   <head>
     <meta http-equiv="Content-Security-Policy"
-          content="script-src 'sha384-Yjk5NGZlNWVkMWJiNDZlMjZkN2E5ODY5M2FkYmJhYWM5MWQ2MzI4ZTIzOTAzNWVhMTdiY2U5MmE1OTQxMDY3MDQyNTAzMTg0MGI1MTAwN2Q0YzVhZjY2MTNiNzFkNzFi' 'sha384-YzU1YjgyZjdmNjZjNzQyYTBjOThlOWM1NzBkZTc2ZDM5YTE5MGM4YTkxNmNlNzdiNmRjYThkYmZiYzcyMmFjYWZiYmUwODM1ODIxZGNjMDFjZjBjN2ExMjViMjQ2MDQ4'; style-src 'sha384-OWNmMzcwOGE3OGYyNmYwOTM0ZmMzY2IwZDY0ZGRiMGRhNmU1ZTFiOTQxOWQwZGJiNmVmZWJiNDUyYzkzYWEwNGU1YzdlMTM4MzRhZGNkZGU0NWE2MmUzMzVhNmY0ZjRh' 'sha384-ZDhkYjljMzNiN2Q3MGQ1ZGFjMzZlMTIwOTZiOTQ4YTZmNDk4ZTlhZGNjZGIwMzRlY2VlYzNiNDIzODNiZjg5ZGUxMzc5MmYwZjA5MWI3NDkyMmVjNDkxYzJhNThiZWJl'"
+          content="script-src 'sha384-uZT+XtG7RuJtephpOtu6rJHWMo4jkDXqF7zpKllBBnBCUDGEC1EAfUxa9mE7cdcb' 'sha384-xVuC9/ZsdCoMmOnFcN5205oZDIqRbOd7bcqNv7xyKsr7vgg1gh3MAc8MehJbJGBI'; style-src 'sha384-nPNwinjybwk0/Dyw1k3bDabl4blBnQ27bv67RSyTqgTlx+E4NK3N3kWmLjNab09K' 'sha384-2NucM7fXDV2sNuEglrlIpvSY6a3M2wNOzuw7Qjg7+J3hN5Lw8JG3SSLsSRwqWL6+'"
     >
     <title>
       Fake Title
@@ -69,7 +69,7 @@ exports[`for inline tags and given sha512 it should inject a sha512+base64 sourc
 <html lang="en">
   <head>
     <meta http-equiv="Content-Security-Policy"
-          content="script-src 'sha512-ZmY5ZTdjNzk4MmM3MmE3ZjE4Mjk2OTI3MmU4MTc5NDZmNDMwMTBlNmY0ZTdmYTU0ZTI5MTUyY2VmMzdmZDA1NWI5YmNmNGE1MWQ4MjBiNTIyYjMxNzY2ZmMyZTUyYjM1YzkwYzAzZjM0MGNjNjk4MDEyNDYxODRhZWM5N2MwYWY=' 'sha512-ZDgzMjA1MTFlYTYxNDhhYzMxYWM4MzcwN2FjZmM3ZjVhMmRhN2Q2YWI5MTlmMzk5YjQ0NjU0NTRmZjYwMjQzZTZhNDhiODlhY2YyOTAyYWE5NWVlZDFjMjE3Zjk5ODY4OTQxZTcxMDFmNGY4YzI3N2MwODYyNTZjMDZlY2JlMmU='; style-src 'sha512-OTY2MDg1NzE5Yzc5ODI0NDY0NTAxZDdjOGEwNmMyOGExNTg4ZmYzOTRhNDJjZDI5NmU3ZTgxMTI2YjU2NDMzZDM1YTQyNjAwZmRhOWVlYmQ0YWNmNDliMzE3ODkwYjZhMDRiOTIwZWZmNzJlYjBhOWNiZjU1NTFkMmIwMjcyODc=' 'sha512-NTNiNDg0YjhhYWFkMzFkODAxMjg2OGVjMGFlZWQyODRjNGU2Mzg4M2YyOTM4MDQ3ZjRiZmNiZGQ2MWQyOTQyOTg5YzFjYTUzMDc2MDcxMmNkZTRlZWY2YjZjODJkMWVlYmU2YTIwOTVmZjMyNDhkOThkYjlhMWJiODlhYmQ4ODg='"
+          content="script-src 'sha512-/558eYLHKn8YKWknLoF5RvQwEOb05/pU4pFSzvN/0FW5vPSlHYILUisxdm/C5Ss1yQwD80DMaYASRhhK7JfArw==' 'sha512-2DIFEephSKwxrINwes/H9aLafWq5GfOZtEZUVP9gJD5qSLiazykCqpXu0cIX+ZholB5xAfT4wnfAhiVsBuy+Lg=='; style-src 'sha512-lmCFcZx5gkRkUB18igbCihWI/zlKQs0pbn6BEmtWQz01pCYA/anuvUrPSbMXiQtqBLkg7/cusKnL9VUdKwJyhw==' 'sha512-U7SEuKqtMdgBKGjsCu7ShMTmOIPyk4BH9L/L3WHSlCmJwcpTB2BxLN5O72tsgtHuvmoglf8ySNmNuaG7iavYiA=='"
     >
     <title>
       Fake Title
@@ -101,7 +101,7 @@ exports[`for inline tags given inline scripts, styles and additional policies sh
 <html lang="en">
   <head>
     <meta http-equiv="Content-Security-Policy"
-          content="style-src https://policy-foo-style.com 'sha256-OWNjNzc1MTdmMmNjMmIzNmM0OWJjOTk2NmRjNGNkMGJhMjFmNmFiZDZjYmFkMDBjMjQ5ZDZlYWExYmM5ZmRjZg==' 'sha256-ODQ0MDEzNWZiYjE0NjY4OTU3ZjQ3NDE4NjkwZmFjNDkxNmU0OWYzNTkxOWQ2ZjMyZWQ5M2RkMTY1NmRhNjFkZA=='; script-src https://policy-foo-script.com 'sha256-YjZlMjI0ZjE0MzBjZTU1MmJhMGU3ZjA5OWY3NzhmNGE4OTY4ZGQ4YjMzM2UyZjg5Nzg5YWRkY2ViM2FjODZjYw==' 'sha256-YWE3MTY0NGRjYmE4MDI5ZWE4M2I1NDU5MjcyZTlhMzdmZjY4ZGUyNmE3YjAwMzA5NGIxZDE5MmVhNmU0ZmM5Ng=='; default-src https://policy-foo-default.com"
+          content="style-src https://policy-foo-style.com 'sha256-nMd1F/LMKzbEm8mWbcTNC6Ifar1sutAMJJ1uqhvJ/c8=' 'sha256-hEATX7sUZolX9HQYaQ+sSRbknzWRnW8y7ZPdFlbaYd0='; script-src https://policy-foo-script.com 'sha256-tuIk8UMM5VK6Dn8Jn3ePSolo3YszPi+JeJrdzrOshsw=' 'sha256-qnFkTcuoAp6oO1RZJy6aN/9o3iansAMJSx0ZLqbk/JY='; default-src https://policy-foo-default.com"
     >
     <title>
       Fake Title

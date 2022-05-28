@@ -5,23 +5,24 @@ subject="$2"
 echo -e "hash for: '$subject'\n"
 
 function sha256() {
-  echo -ne "$subject" | sha256sum | head -c 64
+  echo -n "$subject" | openssl sha256 -binary
 }
 
 function sha384() {
-  echo -ne "$subject" | sha384sum | head -c 96
+  echo -n "$subject" | openssl sha384 -binary
 }
 
 function sha512() {
-  echo -ne "$subject" | sha512sum | head -c 128
+  echo -n "$subject" | openssl sha512 -binary
+}
+
+function __base64() {
+  openssl base64
 }
 
 case "$1" in
-  sha256) sha256;;
-  sha256+base64) sha256 | base64;;
-  sha384) sha384;;
-  sha384+base64) sha384 | base64;;
-  sha512) sha512;;
-  sha512+base64) sha512 | base64;;
+  sha256) sha256 | __base64;;
+  sha384) sha384 | __base64;;
+  sha512) sha512 | __base64;;
   *) echo "unknown arg '${1}'";;
 esac

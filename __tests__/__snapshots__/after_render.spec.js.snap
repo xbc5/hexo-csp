@@ -322,7 +322,7 @@ exports[`when inline tag sources are enabled path: "/" should contain a hash+bas
 <html lang="en">
   <head>
     <meta http-equiv="Content-Security-Policy"
-          content="default-src https://frontmatter-home-default.com; script-src 'sha512-ZGUzZTljYzc4M2M1NjU5MjEwNTJlYTUyZWUzYzAyMzc4NDFhODIxYTU1NmZkZTUwZjI2MTJjNmExZGZjMWQzMWQzZDAxOTQyMmU3ZjY5YmJjMDQzYWNjYTc0YzEzZDY0ODI5NWI2MTQ0ZTA3ZDljMjE3NTg0ZmRkNjljNGM3ZDE=' 'sha512-MzI4ZDg4OGFkYjY5MGIyY2MzZmIzZWVlMGJjN2YxMDNmMDJhNjI0NzFhNGFmMDJlYWFkZDMyZGIwZDI3MjMyNWIzZmI1OTQ0NDM5YjBhMTA0YTIwNjNhYmVkYzU4ZjliYmFmNWZlNWNmYWRhOTRiYmFiMjFkMGRlM2VmYmU4OTA='; style-src 'sha512-YzU1ZGUzNWU5Nzc2NDBkMTI3ZmY5MDIwOTEwMmE1OGFkZjQ2M2UzY2RmMzc2YjM5N2M1MjI2MDQ1Mjk0N2JjZGYyZTdmZDhhYjVhMmYxMTZmMWMxODJmMDQ0YjllMGY2MGQ0OWVmYzJmZDZjMDk2YTFmYjIxYmQ3MjUwMThiOTk=' 'sha512-NzFiYTMzMmIxZjQ5MTRmOTMwODM4MDJhNzVlMzM3MjhlZDFmZTY5MDNiODIzMjhhMWE3Nzg2MjNkNGM1MTRlNWIxY2NmYzdlYWVjM2RkY2UyODYwYTgyNzc5NTE5MTQyZGE0OWUxN2UyYWJmYzc2NzgzZTYwOGI5ODZkOTMxOTc='"
+          content="default-src https://frontmatter-home-default.com; script-src 'sha512-3j6cx4PFZZIQUupS7jwCN4QaghpVb95Q8mEsah38HTHT0BlCLn9pu8BDrMp0wT1kgpW2FE4H2cIXWE/dacTH0Q==' 'sha512-Mo2IittpCyzD+z7uC8fxA/AqYkcaSvAuqt0y2w0nIyWz+1lEQ5sKEEogY6vtxY+buvX+XPralLurIdDePvvokA=='; style-src 'sha512-xV3jXpd2QNEn/5AgkQKlit9GPjzfN2s5fFImBFKUe83y5/2KtaLxFvHBgvBEueD2DUnvwv1sCWofshvXJQGLmQ==' 'sha512-cbozKx9JFPkwg4AqdeM3KO0f5pA7gjKKGneGI9TFFOWxzPx+rsPdzihgqCd5UZFC2knhfiq/x2eD5gi5htkxlw=='"
     >
     <title>
       Markdown Home
@@ -356,7 +356,7 @@ exports[`when inline tag sources are enabled path: "markdown-1" should contain a
 <html lang="en">
   <head>
     <meta http-equiv="Content-Security-Policy"
-          content="default-src https://prod-markdown-1-default-1.com https://frontmatter-markdown-1-default-1.com; script-src 'sha512-ZGUzZTljYzc4M2M1NjU5MjEwNTJlYTUyZWUzYzAyMzc4NDFhODIxYTU1NmZkZTUwZjI2MTJjNmExZGZjMWQzMWQzZDAxOTQyMmU3ZjY5YmJjMDQzYWNjYTc0YzEzZDY0ODI5NWI2MTQ0ZTA3ZDljMjE3NTg0ZmRkNjljNGM3ZDE=' 'sha512-MzI4ZDg4OGFkYjY5MGIyY2MzZmIzZWVlMGJjN2YxMDNmMDJhNjI0NzFhNGFmMDJlYWFkZDMyZGIwZDI3MjMyNWIzZmI1OTQ0NDM5YjBhMTA0YTIwNjNhYmVkYzU4ZjliYmFmNWZlNWNmYWRhOTRiYmFiMjFkMGRlM2VmYmU4OTA='; style-src 'sha512-YzU1ZGUzNWU5Nzc2NDBkMTI3ZmY5MDIwOTEwMmE1OGFkZjQ2M2UzY2RmMzc2YjM5N2M1MjI2MDQ1Mjk0N2JjZGYyZTdmZDhhYjVhMmYxMTZmMWMxODJmMDQ0YjllMGY2MGQ0OWVmYzJmZDZjMDk2YTFmYjIxYmQ3MjUwMThiOTk=' 'sha512-NzFiYTMzMmIxZjQ5MTRmOTMwODM4MDJhNzVlMzM3MjhlZDFmZTY5MDNiODIzMjhhMWE3Nzg2MjNkNGM1MTRlNWIxY2NmYzdlYWVjM2RkY2UyODYwYTgyNzc5NTE5MTQyZGE0OWUxN2UyYWJmYzc2NzgzZTYwOGI5ODZkOTMxOTc='"
+          content="default-src https://prod-markdown-1-default-1.com https://frontmatter-markdown-1-default-1.com; script-src 'sha512-3j6cx4PFZZIQUupS7jwCN4QaghpVb95Q8mEsah38HTHT0BlCLn9pu8BDrMp0wT1kgpW2FE4H2cIXWE/dacTH0Q==' 'sha512-Mo2IittpCyzD+z7uC8fxA/AqYkcaSvAuqt0y2w0nIyWz+1lEQ5sKEEogY6vtxY+buvX+XPralLurIdDePvvokA=='; style-src 'sha512-xV3jXpd2QNEn/5AgkQKlit9GPjzfN2s5fFImBFKUe83y5/2KtaLxFvHBgvBEueD2DUnvwv1sCWofshvXJQGLmQ==' 'sha512-cbozKx9JFPkwg4AqdeM3KO0f5pA7gjKKGneGI9TFFOWxzPx+rsPdzihgqCd5UZFC2knhfiq/x2eD5gi5htkxlw=='"
     >
     <title>
       Markdown 1
@@ -390,7 +390,7 @@ exports[`when inline tag sources are enabled path: "markdown-2" should contain a
 <html lang="en">
   <head>
     <meta http-equiv="Content-Security-Policy"
-          content="img-src https://frontmatter-markdown-2-img-1.com; script-src 'sha512-ZGUzZTljYzc4M2M1NjU5MjEwNTJlYTUyZWUzYzAyMzc4NDFhODIxYTU1NmZkZTUwZjI2MTJjNmExZGZjMWQzMWQzZDAxOTQyMmU3ZjY5YmJjMDQzYWNjYTc0YzEzZDY0ODI5NWI2MTQ0ZTA3ZDljMjE3NTg0ZmRkNjljNGM3ZDE=' 'sha512-MzI4ZDg4OGFkYjY5MGIyY2MzZmIzZWVlMGJjN2YxMDNmMDJhNjI0NzFhNGFmMDJlYWFkZDMyZGIwZDI3MjMyNWIzZmI1OTQ0NDM5YjBhMTA0YTIwNjNhYmVkYzU4ZjliYmFmNWZlNWNmYWRhOTRiYmFiMjFkMGRlM2VmYmU4OTA='; style-src 'sha512-YzU1ZGUzNWU5Nzc2NDBkMTI3ZmY5MDIwOTEwMmE1OGFkZjQ2M2UzY2RmMzc2YjM5N2M1MjI2MDQ1Mjk0N2JjZGYyZTdmZDhhYjVhMmYxMTZmMWMxODJmMDQ0YjllMGY2MGQ0OWVmYzJmZDZjMDk2YTFmYjIxYmQ3MjUwMThiOTk=' 'sha512-NzFiYTMzMmIxZjQ5MTRmOTMwODM4MDJhNzVlMzM3MjhlZDFmZTY5MDNiODIzMjhhMWE3Nzg2MjNkNGM1MTRlNWIxY2NmYzdlYWVjM2RkY2UyODYwYTgyNzc5NTE5MTQyZGE0OWUxN2UyYWJmYzc2NzgzZTYwOGI5ODZkOTMxOTc='"
+          content="img-src https://frontmatter-markdown-2-img-1.com; script-src 'sha512-3j6cx4PFZZIQUupS7jwCN4QaghpVb95Q8mEsah38HTHT0BlCLn9pu8BDrMp0wT1kgpW2FE4H2cIXWE/dacTH0Q==' 'sha512-Mo2IittpCyzD+z7uC8fxA/AqYkcaSvAuqt0y2w0nIyWz+1lEQ5sKEEogY6vtxY+buvX+XPralLurIdDePvvokA=='; style-src 'sha512-xV3jXpd2QNEn/5AgkQKlit9GPjzfN2s5fFImBFKUe83y5/2KtaLxFvHBgvBEueD2DUnvwv1sCWofshvXJQGLmQ==' 'sha512-cbozKx9JFPkwg4AqdeM3KO0f5pA7gjKKGneGI9TFFOWxzPx+rsPdzihgqCd5UZFC2knhfiq/x2eD5gi5htkxlw=='"
     >
     <title>
       Markdown 2
