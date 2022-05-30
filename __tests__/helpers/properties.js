@@ -1,11 +1,11 @@
 const fc = require("fast-check");
 
-const assert = (arb, expecter) => {
+const assert = (arb, expecter, opts = {}) => {
   fc.assert(
     fc.property(arb, (a) => {
       expecter(a);
     }),
-    { verbose: true }
+    { ...{ verbose: true }, ...opts }
   );
 };
 

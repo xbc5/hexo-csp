@@ -14,10 +14,15 @@ it("should accept integers", () => {
 });
 
 it("should reject non-integer numbers", () => {
-  assert(fc.oneof(fc.float(), fc.bigInt(), fc.bigUint()), (val) => {
-    fc.pre(val !== 0);
-    expect(validate(val).error).toBeDefined();
-  });
+  assert(
+    // float() produces integers, because JS is stupid. use explicit integer
+    // (that is known to fail tests) to test the precondition.
+    fc.oneof(fc.constant(-4819758), fc.float(), fc.bigInt(), fc.bigUint()),
+    (val) => {
+      fc.pre(val !== 0 && !Number.isInteger(val));
+      expect(validate(val).error).toBeDefined();
+    }
+  );
 });
 
 it("should accept undefined", () => {

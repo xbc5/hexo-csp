@@ -82,3 +82,10 @@ describe("when inline tag sources are enabled", () => {
     });
   });
 });
+
+describe(`priority=200`, () => {
+  it("should render, and not throw", async () => {
+    const render = await fixture("priority");
+    expect(await render("/")).toMatchSnapshot();
+  });
+});

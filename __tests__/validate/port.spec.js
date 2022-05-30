@@ -29,6 +29,13 @@ it("should reject numbers > 65535", () => {
   });
 });
 
+it("should reject floats", () => {
+  assert(fc.float({ min: 1, max: 65535 }), (val) => {
+    fc.pre(!Number.isInteger(val)); // whole numbers pass as floats. garbage.
+    expect(validate(val).error).toBeDefined();
+  });
+});
+
 it("should reject non-integers", () => {
   assert(notIntegers(), (val) => {
     const defined = val !== undefined;

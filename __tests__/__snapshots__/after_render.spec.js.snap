@@ -317,6 +317,21 @@ exports[`given the path "index.html" should only match against the "/" policy pa
 </html>
 `;
 
+exports[`priority=200 should render, and not throw 1`] = `
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Security-Policy"
+          content="img-src https://the-only-source.com"
+    >
+    <title>
+    </title>
+  </head>
+  <body>
+  </body>
+</html>
+`;
+
 exports[`when inline tag sources are enabled path: "/" should contain a hash+base64 source for each script/style, that merges with existing policies 1`] = `
 <!DOCTYPE html>
 <html lang="en">
