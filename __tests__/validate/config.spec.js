@@ -24,7 +24,6 @@ const set = (path, value = null) => {
 
 [
   "enabled",
-  "env",
   "inline",
   "inline.algo",
   "inline.enabled",

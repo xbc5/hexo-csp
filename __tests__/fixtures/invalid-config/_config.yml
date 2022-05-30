@@ -8,7 +8,7 @@ pretty_urls:
 
 csp:
   enabled: true
-  env: invalid
+  inline: invalid
   logger:
     dev:
       enabled: false

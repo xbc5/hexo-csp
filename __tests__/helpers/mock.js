@@ -28,6 +28,7 @@ async function fixture(fixtureName, opts = {}) {
   // server middleware and build-time code. Since these test utils focus on generation,
   // set this as default.
   ctx.env.cmd = defaults.cmd;
+  if (defaults.env) ctx.env.env = defaults.env;
   await _process(ctx);
   return async (name) => (await contentFor(ctx, name)).toString().trim();
 }

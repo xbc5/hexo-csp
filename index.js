@@ -2,7 +2,6 @@
 
 const { applyCSP } = require("./lib/markup");
 const Config = require("./lib/config-factory");
-const { registerCli } = require("./lib/cli");
 const util = require("util");
 const Policies = require("./lib/Policies");
 const Middleware = require("./lib/Middleware");
@@ -11,8 +10,6 @@ const clone = require("lodash.clonedeep");
 const Cache = require("./lib/DirectivesCache-factory");
 const { stripIndex } = require("./lib/util");
 const Directives = require("./lib/Directives");
-
-registerCli(hexo);
 
 function error(error, hexo, path) {
   if (error !== undefined) {
@@ -34,7 +31,7 @@ function error(error, hexo, path) {
 const validated = schema.validate(clone(hexo.config.csp));
 
 if (!error(validated.error, hexo)) {
-  const config = Config(validated.value);
+  const config = Config(validated.value, hexo.env.env);
 
   // TODO: test me: cache, cmd, middleware applied, CSP logging
   if (config.enabled) {

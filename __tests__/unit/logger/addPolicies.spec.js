@@ -18,7 +18,7 @@ function fixture({ env }) {
       path: "/csp-logger",
     },
   };
-  const config = new Config({ env, logger: loggerConf });
+  const config = new Config({ logger: loggerConf }, env);
   const policies = new Policies({ env });
   const add = (p = policies, c = config) => {
     return logger.addPolicies(p, c);

@@ -18,7 +18,6 @@ const validConfig = () => ({
     },
   },
   priority: 100,
-  env: "prod",
   policies: [
     {
       pattern: "^foo$",

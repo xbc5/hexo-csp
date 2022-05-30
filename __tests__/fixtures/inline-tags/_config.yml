@@ -8,7 +8,7 @@ pretty_urls:
 
 csp:
   enabled: true
-  env: prod
+
   inline:
     enabled: true
     algo: sha512

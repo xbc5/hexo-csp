@@ -8,7 +8,7 @@ pretty_urls:
 
 csp:
   enabled: true
-  env: prod
+
   logger:
     prod:
       enabled: true

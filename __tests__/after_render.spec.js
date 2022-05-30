@@ -6,7 +6,7 @@ describe("given mixed mode policies and env=prod", () => {
   ["markdown-1", "markdown-2", "/"].forEach((name) => {
     describe(`for ${name}`, () => {
       it("should merge and render the given policies", async () => {
-        const render = await fixture("mixed-mode-prod");
+        const render = await fixture("mixed-mode-prod", { env: "prod" });
         expect(await render(name)).toMatchSnapshot();
       });
     });
@@ -17,7 +17,7 @@ describe("given mixed mode policies and env=dev", () => {
   ["markdown-1", "markdown-2", "/"].forEach((name) => {
     describe(`for ${name}`, () => {
       it("should merge and render the given policies", async () => {
-        const render = await fixture("mixed-mode-dev");
+        const render = await fixture("mixed-mode-dev", { env: "dev" });
         expect(await render(name)).toMatchSnapshot();
       });
     });
@@ -29,7 +29,7 @@ describe("given replace mode policies and env=dev", () => {
   ["markdown-1", "markdown-2", "/"].forEach((name) => {
     describe(`for ${name}`, () => {
       it("should replace where appropriate and render the given policies", async () => {
-        const render = await fixture("replace-mode-dev");
+        const render = await fixture("replace-mode-dev", { env: "dev" });
         expect(await render(name)).toMatchSnapshot();
       });
     });
@@ -52,7 +52,7 @@ describe("given the custom permalink", () => {
     describe(p, () => {
       const basename = p === "/" ? "/" : path.basename(p);
       it(`should ignore the dirname and use only the basename: ${basename}`, async () => {
-        const render = await fixture("custom-permalink");
+        const render = await fixture("custom-permalink", { env: "prod" });
         expect(await render(p)).toMatchSnapshot();
       });
     });
@@ -62,7 +62,7 @@ describe("given the custom permalink", () => {
 ["/", "/index.html", "index.html"].forEach((path) => {
   describe(`given the path "${path}"`, () => {
     it(`should only match against the "/" policy path`, async () => {
-      const render = await fixture("slash-root");
+      const render = await fixture("slash-root", { env: "prod" });
       expect(await render(path)).toMatchSnapshot();
     });
   });
@@ -76,7 +76,7 @@ describe("when inline tag sources are enabled", () => {
   ["/", "markdown-1", "markdown-2"].forEach((path) => {
     describe(`path: "${path}"`, () => {
       it(`should contain a hash+base64 source for each script/style, that merges with existing policies`, async () => {
-        const render = await fixture("inline-tags");
+        const render = await fixture("inline-tags", { env: "prod" });
         expect(await render(path)).toMatchSnapshot();
       });
     });

@@ -8,7 +8,7 @@ pretty_urls:
 
 csp:
   enabled: true
-  env: prod
+
   policies:
     - pattern: ^markdown-2$
       prod:
